@@ -15,10 +15,7 @@ module.exports = defineConfig({
       credentials: {
         user: "username",
         password: "password",
-      },
-      dates: {
-        email: "marcourquidi17@outlook.com",
-        pw: "Hijodecain17",
+      
       }
     }
   },
