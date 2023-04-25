@@ -13,9 +13,8 @@ module.exports = defineConfig({
     ],
     env: {
       credentials: {
-        user: "username",
-        password: "password",
-      
+        email: "",
+        pw: "",
       }
     }
   },
