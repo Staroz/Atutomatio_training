@@ -2,7 +2,26 @@
 // This example commands.js shows you how to
 // create various custom commands and overwrite
 // existing commands.
-//
+    
+Cypress.Commands.add('login', (email, pw) => {
+        cy.visit('https://trello.com');
+        cy.get('.Buttonsstyles__ButtonGroup-sc-1jwidxo-3 > [href="/login"]').click();
+        cy.get('#user').type(Cypress.env("dates").email);
+        cy.get('#login').click();
+        cy.origin('https://id.atlassian.com', function (pw) {
+            cy.get('#password').type(Cypress.env("dates").pw)
+            cy.get('#login-submit').click()
+            });
+        })
+
+Cypress.Commands.add('logout', ()=> {
+    cy.wait(1500)
+    cy.get('.DweEFaF5owOe02').click()
+    cy.get('[data-testid="account-menu-logout"]').click()
+    
+
+
+})
 // For more comprehensive examples of custom
 // commands please read more here:
 // https://on.cypress.io/custom-commands
