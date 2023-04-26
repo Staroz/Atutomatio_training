@@ -1,5 +1,4 @@
 #Automation_training 
-For test "modifiedBoard.cy.js"
 
 In the file cypress.config.js, fill in the fields of the object "credentials" 
 like:
