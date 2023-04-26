@@ -1,10 +1,10 @@
-# Atutomatio_training
-automation training
+# Automation_training
 
-for test "testTrello.cy.js"
+
+For test "testTrelloMU03.cy.js"
 
 In  the file  cypress.config.js, fill in the fields of the object "credentials"
-with:
+like:
 ``` 
 env: {
       credentials: {
