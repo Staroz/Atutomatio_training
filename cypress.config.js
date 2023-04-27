@@ -2,10 +2,14 @@ const { defineConfig } = require("cypress");
 
 
 module.exports = defineConfig({
+  defaultCommandTimeout: 7000,
+  
   viewportWidth: 1200,
   viewportHeight: 660,
   experimentalModifyObstructiveThirdPartyCode: true,
   e2e: {
+    experimentalSessionAndOrigin: true,
+    baseUrl: 'https://trello.com/home',
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
@@ -15,8 +19,7 @@ module.exports = defineConfig({
     ],
     env: {
       credentials: {
-        email: "",
-        pw: "",
+
       },
     }
   },
