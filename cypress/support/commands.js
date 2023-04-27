@@ -2,15 +2,15 @@
 // This example commands.js shows you how to
 // create various custom commands and overwrite
 // existing commands.
-Cypress.Commands.add('login', () => {
+Cypress.Commands.add('login', (email, pw) => {
 
     cy.session('loginTrello', () => {
         cy.visit('');
         cy.get('.Buttonsstyles__ButtonGroup-sc-1jwidxo-3 > [href="/login"]').click();
-        cy.get('#user').type(Cypress.env("credentials").email);
+        cy.get('#user').type(email);
         cy.get('#login').click();
-        cy.origin('https://id.atlassian.com', function () {
-            cy.get('#password').type(Cypress.env("credentials").pw);
+        cy.origin('https://id.atlassian.com', {args: {pw}}, ({pw}) => {
+            cy.get('#password').type(pw);
             cy.get('#login-submit').click();
             });
         cy.url().should('contain', 'marcourquidi17/boards')

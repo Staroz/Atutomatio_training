@@ -1,22 +1,26 @@
 /// <reference types= "cypress" />
 
-const newNameBoard = "Test 02";
-const nameBoard = "Test 01";
-
 
 describe("Boards", () => {
 	beforeEach(() => {
-		cy.login();
+        cy.fixture('example.json').then((value) => {
+            const email = value.email;
+            const pw = value.pw;
+            cy.login(email, pw);
+        });
 	});
 
 	describe("Create", function () {
 		it("Create a new board", () => {
 			//creating a board and assertion if it was created.
-			cy.visit('https://trello.com/u/marcourquidi17/boards');
-            cy.createBoard(nameBoard);
-			cy.get('[class="js-board-editing-target board-header-btn-text"]')
-                .should("have.text", nameBoard);
-		});
+			cy.fixture('example.json').then((value) =>{
+                const nameBoard = value.nameBoard;
+                cy.visit('https://trello.com/u/marcourquidi17/boards');
+                cy.createBoard(nameBoard);
+			    cy.get('[class="js-board-editing-target board-header-btn-text"]')
+                    .should("have.text", nameBoard);
+                });
+            });
 
 		after(() => {
 			cy.deleteBoard();
@@ -25,11 +29,16 @@ describe("Boards", () => {
 
 	describe('Modify', ()=>{
 	    it('Modify title board', ()=>{
-	        cy.visit('https://trello.com/u/marcourquidi17/boards');
-            cy.createBoard(nameBoard);
-            cy.modifyNameBoard(newNameBoard);
-	        cy.get('[class="js-board-editing-target board-header-btn-text"]')
-                .should('have.text', newNameBoard);
+            cy.fixture('example.json').then((value) =>{
+                const newNameBoard = value.newNameBoard;
+                const nameBoard = value.nameBoard;
+
+	            cy.visit('https://trello.com/u/marcourquidi17/boards');
+                cy.createBoard(nameBoard);
+                cy.modifyNameBoard(newNameBoard);
+	            cy.get('[class="js-board-editing-target board-header-btn-text"]')
+                    .should('have.text', newNameBoard);
+            });
 	    });
 	    after(()=> {
 	        cy.deleteBoard();
@@ -38,9 +47,12 @@ describe("Boards", () => {
 	describe("Delete", () => {
 		
 		it("Delete a Board", () => {
-			cy.visit('https://trello.com/u/marcourquidi17/boards');
-            cy.createBoard(nameBoard);
-            cy.deleteBoard();
+            cy.fixture('example.json').then((value) =>{
+                const nameBoard = value.newNameBoard;
+			    cy.visit('https://trello.com/u/marcourquidi17/boards');
+                cy.createBoard(nameBoard);
+                cy.deleteBoard();
+            });
 		});
 	});
     after(() => {

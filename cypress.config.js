@@ -3,7 +3,6 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   defaultCommandTimeout: 7000,
-  
   viewportWidth: 1200,
   viewportHeight: 660,
   experimentalModifyObstructiveThirdPartyCode: true,
@@ -17,10 +16,5 @@ module.exports = defineConfig({
       "**/1-getting-started/*.js",
       "**/2-advanced-examples/*.js"
     ],
-    env: {
-      credentials: {
-
-      },
-    }
   },
 });

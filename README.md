@@ -1,13 +1,13 @@
 #Automation_training 
 
-In the file cypress.config.js, fill in the fields of the object "credentials" 
+In the file example.json, fill in the fields of the object "credentials" 
 like:
 
-env: { 
-  credentials: { 
-    email: "example@email.com", 
-    pw: "MyPassword",
-  } 
+{
+  "email": "example@email.com",
+  "pw": "password",
+  "nameBoard": "name board",
+  "newNameBoard": "new name board "
 }
 
 
