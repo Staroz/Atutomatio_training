@@ -8,6 +8,7 @@ like:
   "pw": "password",
   "nameBoard": "name board",
   "newNameBoard": "new name board "
+   "userName": "username = example"
 }
 
 

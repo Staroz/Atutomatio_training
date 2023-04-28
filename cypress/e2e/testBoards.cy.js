@@ -6,7 +6,8 @@ describe("Boards", () => {
         cy.fixture('credentials.json').then((value) => {
             const email = value.email;
             const pw = value.pw;
-            cy.login(email, pw);
+			const userName = value.userName;
+            cy.login(email, pw, userName);
         });
 	});
 
@@ -15,7 +16,8 @@ describe("Boards", () => {
 			//creating a board and assertion if it was created.
 			cy.fixture('credentials.json').then((value) =>{
                 const boardName = value.boardName;
-                cy.visit('https://trello.com/u/marcourquidi17/boards');
+				const userName = value.userName;
+                cy.visit('https://trello.com/u/'+userName +'/boards');
                 cy.createBoard(boardName);
 			    cy.get('[class="js-board-editing-target board-header-btn-text"]')
                     .should("have.text", boardName);
@@ -32,8 +34,9 @@ describe("Boards", () => {
             cy.fixture('credentials.json').then((value) =>{
                 const newBoardName = value.newBoardName;
                 const boardName = value.boardName;
+				const userName = value.userName;
 
-	            cy.visit('https://trello.com/u/marcourquidi17/boards');
+	            cy.visit('https://trello.com/u/'+userName +'/boards');
                 cy.createBoard(boardName);
                 cy.modifyBoardName(newBoardName);
 	            cy.get('[class="js-board-editing-target board-header-btn-text"]')
@@ -49,7 +52,9 @@ describe("Boards", () => {
 		it("Delete a Board", () => {
             cy.fixture('credentials.json').then((value) =>{
                 const boardName = value.newBoardName;
-			    cy.visit('https://trello.com/u/marcourquidi17/boards');
+				const userName = value.userName;
+				
+			    cy.visit('https://trello.com/u/'+userName +'/boards');
                 cy.createBoard(boardName);
                 cy.boardDelete();
             });

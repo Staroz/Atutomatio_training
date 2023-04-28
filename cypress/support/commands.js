@@ -2,7 +2,7 @@
 // This example commands.js shows you how to
 // create various custom commands and overwrite
 // existing commands.
-Cypress.Commands.add('login', (email, pw) => {
+Cypress.Commands.add('login', (email, pw, userName) => {
 
     cy.session('trelloLogin', () => {
         cy.visit('');
@@ -13,7 +13,7 @@ Cypress.Commands.add('login', (email, pw) => {
             cy.get('#password').type(pw);
             cy.get('#login-submit').click();
             });
-        cy.url().should('contain', 'marcourquidi17/boards')
+        cy.url().should('contains', userName + '/boards')
     });
 });
 
