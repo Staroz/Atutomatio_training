@@ -19,7 +19,7 @@ describe("Boards", () => {
 				const userName = value.userName;
                 cy.visit('https://trello.com/u/'+userName +'/boards');
                 cy.createBoard(boardName);
-			    cy.get('[class="js-board-editing-target board-header-btn-text"]')
+				cy.get('[class="js-board-editing-target board-header-btn-text"]')
                     .should("have.text", boardName);
                 });
             });
@@ -30,22 +30,22 @@ describe("Boards", () => {
 	});
 
 	describe('Modify', ()=>{
-	    it('Modify board title', ()=>{
+		it('Modify board title', ()=>{
             cy.fixture('credentials.json').then((value) =>{
                 const newBoardName = value.newBoardName;
                 const boardName = value.boardName;
 				const userName = value.userName;
 
-	            cy.visit('https://trello.com/u/'+userName +'/boards');
+				cy.visit('https://trello.com/u/'+userName +'/boards');
                 cy.createBoard(boardName);
                 cy.modifyBoardName(newBoardName);
-	            cy.get('[class="js-board-editing-target board-header-btn-text"]')
+				cy.get('[class="js-board-editing-target board-header-btn-text"]')
                     .should('have.text', newBoardName);
             });
-	    });
-	    after(()=> {
-	        cy.boardDelete();
-	    });
+		});
+		after(()=> {
+			cy.boardDelete();
+		});
 	});
 	describe("Delete", () => {
 		
@@ -54,7 +54,7 @@ describe("Boards", () => {
                 const boardName = value.newBoardName;
 				const userName = value.userName;
 				
-			    cy.visit('https://trello.com/u/'+userName +'/boards');
+				cy.visit('https://trello.com/u/'+userName +'/boards');
                 cy.createBoard(boardName);
                 cy.boardDelete();
             });
