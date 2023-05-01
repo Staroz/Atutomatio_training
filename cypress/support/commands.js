@@ -45,6 +45,40 @@ Cypress.Commands.add('modifyBoardName', (newBoardName)=> {
         
 });
 
+Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
+
+    cy.request({
+        url: `?name=${boardName}&key=${key}&token=${token}`,
+        method: 'POST',
+        }).then(function(response){
+            expect(response.status).to.eq(200);
+            const id = response.body.id;
+            console.log(id);
+            cy.wrap(id).as('id');
+            });
+});
+
+Cypress.Commands.add('boardUpdateApi', function(key, token, newBoardName) {
+
+    cy.request({
+        url: `${this.id}?&key=${key}&token=${token}&name=${newBoardName}`,
+        method: 'PUT'
+    }).then(response => {
+        expect(response.status).to.eq(200);
+        });
+});
+
+Cypress.Commands.add('boardDeleteApi', function(key, token) {
+
+        cy.request({
+        url: `${this.id}?key=${key}&token=${token}`,
+        method: 'DELETE',
+        }).then(response=>{
+                expect(response.status).to.eq(200);
+            });
+    })
+
+
 // For more comprehensive examples of custom
 // commands please read more here:
 // https://on.cypress.io/custom-commands

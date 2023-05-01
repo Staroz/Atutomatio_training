@@ -19,7 +19,7 @@ describe("Boards", () => {
 				const userName = value.userName;
                 cy.visit('https://trello.com/u/'+userName +'/boards');
                 cy.createBoard(boardName);
-				cy.get('[class="js-board-editing-target board-header-btn-text"]')
+				cy.get('[class="board-tile-details-name"]')
                     .should("have.text", boardName);
                 });
             });
