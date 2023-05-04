@@ -1,6 +1,6 @@
 #Automation_training 
 
-In the file example.json, fill in the fields of the object "credentials" 
+In the file credentials.json, fill in the fields of the object "credentials" 
 like:
 
 {
@@ -8,7 +8,9 @@ like:
   "pw": "password",
   "nameBoard": "name board",
   "newNameBoard": "new name board "
-   "userName": "username = example"
+  "userName": "username = example",
+  "key": "API  key of Trello ",
+  "token": "API Token of Trello",
 }
 
 
