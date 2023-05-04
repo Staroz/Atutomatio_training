@@ -2,6 +2,7 @@
 
 
 describe("Boards", () => {
+
 	beforeEach(() => {
         cy.fixture('credentials.json').then((value) => {
             const email = value.email;
@@ -22,10 +23,10 @@ describe("Boards", () => {
 				cy.get('[class="board-tile-details-name"]')
                     .should("have.text", boardName);
                 });
-            });
 
-		after(() => {
-			cy.boardDelete();
+			after(() => {
+				cy.boardDelete();
+			});
 		});
 	});
 
