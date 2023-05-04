@@ -1,68 +1,55 @@
 /// <reference types= "cypress" />
 
-
-describe("Boards", () => {
-
-	beforeEach(() => {
-        cy.fixture('credentials.json').then((value) => {
-            const email = value.email;
-            const pw = value.pw;
-			const userName = value.userName;
-            cy.login(email, pw, userName);
-        });
+describe("Boards", function() {
+    before(function() {
+        cy.fixture("credentials.json").as('credentials');
+    });
+    
+    beforeEach(function () {
+        cy.login(this.credentials.email, this.credentials.pw, this.credentials.userName);
 	});
 
 	describe("Create", function () {
-		it("Create a new board", () => {
-			//creating a board and assertion if it was created.
-			cy.fixture('credentials.json').then((value) =>{
-                const boardName = value.boardName;
-				const userName = value.userName;
-                cy.visit('https://trello.com/u/'+userName +'/boards');
-                cy.createBoard(boardName);
-				cy.get('[class="board-tile-details-name"]')
-                    .should("have.text", boardName);
-                });
-
-			after(() => {
-				cy.boardDelete();
-			});
+		it("Create a new board", function () {
+				cy.visit(`/u/" + ${this.credentials.userName} + "/boards`);
+				cy.createBoard(this.credentials.boardName);
+				cy.get('[data-testid="board-name-display"]').
+                    should('have.text', this.credentials.boardName);
 		});
+
+        after(function () {
+            cy.getBoardId(this.credentials.key, this.credentials.token, this.credentials.boardName);
+            cy.boardDeleteApi(this.credentials.key, this.credentials.token);
+        });
 	});
 
-	describe('Modify', ()=>{
-		it('Modify board title', ()=>{
-            cy.fixture('credentials.json').then((value) =>{
-                const newBoardName = value.newBoardName;
-                const boardName = value.boardName;
-				const userName = value.userName;
-
-				cy.visit('https://trello.com/u/'+userName +'/boards');
-                cy.createBoard(boardName);
-                cy.modifyBoardName(newBoardName);
-				cy.get('[class="js-board-editing-target board-header-btn-text"]')
-                    .should('have.text', newBoardName);
-            });
-		});
-		after(()=> {
-			cy.boardDelete();
-		});
-	});
-	describe("Delete", () => {
+    describe('Modify', function () {
+		before(function() {
+			cy.boardCreateApi(this.credentials.key, this.credentials.token, this.credentials.boardName);   
+        });
+        it('Modify the title of the board', function() {
+				cy.visit('/u/'+ this.credentials.userName +'/boards');
+                cy.modifyBoardName(this.credentials.boardName, this.credentials.newBoardName);
+				cy.get('[data-testid="board-name-display"]')
+                    .should('have.text', this.credentials.newBoardName);
+        });
 		
-		it("Delete a Board", () => {
-            cy.fixture('credentials.json').then((value) =>{
-                const boardName = value.newBoardName;
-				const userName = value.userName;
-				
-				cy.visit('https://trello.com/u/'+userName +'/boards');
-                cy.createBoard(boardName);
-                cy.boardDelete();
+        after(function (){
+            cy.getBoardId(this.credentials.key, this.credentials.token, this.credentials.newBoardName);
+            cy.boardDeleteApi(this.credentials.key, this.credentials.token);
+        });
+	});
+	describe("Delete", function () {
+		before(function() {
+            cy.boardCreateApi(this.credentials.key, this.credentials.token, this.credentials.boardName);   
             });
+		it("Delete a Board", function() {
+			cy.visit('/u/'+this.credentials.userName +'/boards');
+            cy.boardDelete(this.credentials.boardName);
 		});
 	});
     after(() => {
-		cy.logout();
+		cy.visit('/u/'+this.credentials.userName +'/boards');
+        cy.logout();
 	});
 });
-
