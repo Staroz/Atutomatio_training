@@ -2,7 +2,7 @@ name: Board Test
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -15,4 +15,4 @@ jobs:
         run: |
           cat cypress/fixtures/credentials1.json
       - name: Cypress run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v3
