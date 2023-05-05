@@ -11,5 +11,8 @@ jobs:
             echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
+      - name: Tests 2
+        run: |
+          cat cypress/fixtures/credentials1.json
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v5
