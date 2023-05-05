@@ -1,0 +1,15 @@
+name: Board Test
+on: push
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Recover the secret
+        run: |
+            echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
