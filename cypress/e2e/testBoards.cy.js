@@ -2,7 +2,7 @@
 
 describe("Boards", function() {
     before(function() {
-        cy.fixture("credentials.json").as('credentials');
+        cy.fixture("credentials1.json").as('credentials');
     });
     
     beforeEach(function () {
@@ -49,7 +49,6 @@ describe("Boards", function() {
 		});
 	});
     after(() => {
-		cy.visit('/u/'+this.credentials.userName +'/boards');
         cy.logout();
 	});
 });
