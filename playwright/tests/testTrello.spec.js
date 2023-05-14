@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const  credentials = require('../fixtures/credentials.json');
+const  credentials = require('../fixtures/credentials1.json');
 const { chromium } = require('@playwright/test');
 
 test.describe('Test suite', async () => {
@@ -11,7 +11,7 @@ test.describe('Test suite', async () => {
         context = await browser.newContext();
         page = await context.newPage();
         
-        await page.goto('');
+        await page.goto('https://trello.com/');
         await page.getByTestId('bignav').getByRole('link', { name: 'Log in' }).click();
         await page.getByPlaceholder('Enter email').click();
         await page.getByPlaceholder('Enter email').fill(credentials.email);
