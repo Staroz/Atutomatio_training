@@ -22,7 +22,7 @@ test.describe('Test suite', async () => {
         page.waitForNavigation(),
         page.click('#login-submit')
         ]);
-        await expect(page).toHaveURL('');
+        await expect(page).toHaveURL(credentials.userName);
     });
 
     test.afterEach(async () => {
