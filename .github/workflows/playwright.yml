@@ -13,6 +13,8 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Install dep
+      run: npm install -D @playwright/test
     - name: Recover the secret
       run: |
           echo '${{ secrets.CREDENTIALS_E2E }}' > playwright/fixtures/credentials1.json
