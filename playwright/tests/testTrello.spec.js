@@ -22,7 +22,7 @@ test.describe('Test suite', async () => {
         page.waitForNavigation(),
         page.click('#login-submit')
         ]);
-        await expect(page).toHaveURL(credentials.userName);
+        await expect(page).toHaveURL(`https://trello.com/u/${credentials.userName}/boards`);
     });
 
     test.afterEach(async () => {
