@@ -4,7 +4,7 @@ import {Before, Given, When, Then} from "@badeball/cypress-cucumber-preprocessor
 
 describe("Manipulate of boards of Trello with API", function() {
     Before(function(){
-        cy.fixture('credentials.json').as('credentials');
+        cy.fixture('credentials1.json').as('credentials');
     })
     Given( "I created a new board in Trello", function() {
         cy.boardCreateApi(this.credentials.key, this.credentials.token, this.credentials.boardName);
