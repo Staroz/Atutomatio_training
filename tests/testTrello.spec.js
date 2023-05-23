@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const  credentials = require('../cypress/fixtures/credentials.json');
+const  credentials = require('../cypress/fixtures/credentials1.json');
 const { chromium } = require('@playwright/test');
 const { Commands } = require('./pages/commandsUi');
 const { ApiCommands } = require('./pages/apiCommands');
