@@ -1,17 +1,23 @@
 #Automation_training 
 
-In the file credentials.json, fill in the fields of the object "credentials" 
-like:
+This Repository has Tests of the web of Trello, the libraries that were used in this project are:
+
+~ Cypress
+~ Playwritght
+
+I'd be happy if you leave me any observations or feedback, and if you want to fork this proyect and run this project in local, you should create a file "cypress/fixtures/credentials1.json" and fill these information:
 
 {
   "email": "example@email.com",
-  "pw": "password",
-  "nameBoard": "name board",
-  "newNameBoard": "new name board "
-  "userName": "username = example",
-  "key": "API  key of Trello ",
-  "token": "API Token of Trello",
-}
+  "pw": "Password",
+  "token": "",
+  "key": "",
+  "boardName": "name 1",
+  "newBoardName": "name 2",
+  "userName": "username of Trello"
+  }
+
+  Thanks.
 
 
 

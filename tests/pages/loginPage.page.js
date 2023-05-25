@@ -1,5 +1,3 @@
-const { expect } = require('@playwright/test');
-
 exports.LoginPage = class LoginPage {
 
   /**
@@ -9,19 +7,18 @@ exports.LoginPage = class LoginPage {
         this.page = page;
         this.email = page.locator('[id="user"]');
         this.password = page.locator('#password');
-        this.enterEm = page.locator('[id="login"]');
-        this.enterPw = page.locator('[id="login-submit"]');
+        this.sendEmail = page.locator('[id="login"]');
+        this.sendPassword = page.locator('[id="login-submit"]');
     };
     async gotoPage() {
     await this.page.goto('login');
     };
     async enterEmail(email) {
         await this.email.fill(email);
-        await this.enterEm.click();
+        await this.sendEmail.click();
     };
     async enterPassword(password) {
         await this.password.fill(password);
-        await this.enterPw.click();
-        await expect(this.page).toHaveURL('');
+        await this.sendPassword.click();
     };
 };
