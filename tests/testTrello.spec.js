@@ -20,7 +20,7 @@ test.describe('Test suite', async () => {
         await userMethod.gotoPage();
         await userMethod.enterEmail(credentials.email);
         await userMethod.enterPassword(credentials.pw);
-        await expect(page).toHaveURL('');
+        await expect(page).toHaveURL(`u/${credentials.userName}/boards`);
     });
 
 
