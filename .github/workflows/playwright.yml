@@ -1,7 +1,7 @@
 name: Playwright Tests
 on: 
   workflow_run:
-    workflows: ["Board Test"]
+    workflows: [Board Test]
     types:
       - completed
 jobs:
