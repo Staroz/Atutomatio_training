@@ -1,3 +1,5 @@
+import { getWSId, getId } from "./functions";
+
 //LOGIN AND LOGOUT
 Cypress.Commands.add('login', (email, pw, userName) => {
     cy.session('trelloLogin', () => {
@@ -133,31 +135,31 @@ Cypress.Commands.add('boardDeleteApi', function(key, token) {
                 });
     });
 
-    // FUNCTIONS 
-function getId(arr, boardName) {
-	let ans = "";
-	for (let index = 0; index < arr.length; index++) {
-		const element = arr[index];
-		if (element.name === boardName) {
-			ans = element.id;
-			break;
-		} else {
-			ans = "ERROR, THIS BOARD NAME DOESN'T EXIT";
-		}
-	}
-	return ans;
-};
+//     // FUNCTIONS 
+// function getId(arr, boardName) {
+// 	let ans = "";
+// 	for (let index = 0; index < arr.length; index++) {
+// 		const element = arr[index];
+// 		if (element.name === boardName) {
+// 			ans = element.id;
+// 			break;
+// 		} else {
+// 			ans = "ERROR, THIS BOARD NAME DOESN'T EXIT";
+// 		}
+// 	}
+// 	return ans;
+// };
 
-function getWSId(arr, displayName) {
-	let ans = "";
-	for (let index = 0; index < arr.length; index++) {
-		const element = arr[index];
-		if (element.displayName === displayName) {
-			ans = element.id;
-			break;
-		} else {
-			ans = "ERROR, THIS WORK SPACE NAME DOESN'T EXIT";
-		}
-	}
-	return ans;
-};
+// function getWSId(arr, displayName) {
+// 	let ans = "";
+// 	for (let index = 0; index < arr.length; index++) {
+// 		const element = arr[index];
+// 		if (element.displayName === displayName) {
+// 			ans = element.id;
+// 			break;
+// 		} else {
+// 			ans = "ERROR, THIS WORK SPACE NAME DOESN'T EXIT";
+// 		}
+// 	}
+// 	return ans;
+// };

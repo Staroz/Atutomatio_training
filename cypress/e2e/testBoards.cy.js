@@ -2,7 +2,7 @@
 
 describe("Manipulating UI of Trello", function() {
     before(function() {
-        cy.fixture("credentials1.json").as('credentials');
+        cy.fixture("credentials.json").as('credentials');
     });
     
     beforeEach(function () {
