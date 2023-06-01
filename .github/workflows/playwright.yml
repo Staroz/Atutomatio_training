@@ -5,6 +5,8 @@ on:
       - Board Test
     types:
       - completed
+    branches:
+      - mu_13
 jobs:
   test:
     timeout-minutes: 60
