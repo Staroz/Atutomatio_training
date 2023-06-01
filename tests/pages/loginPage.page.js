@@ -18,15 +18,4 @@ exports.LoginPage = class LoginPage {
         await this.passwordInput.fill(password);
         await this.sendPassword.click();
     };
-    // async gotoPage() {
-    //     await this.page.goto('login');
-    // };
-    // async enterEmail(email) {
-    //     await this.emailInput.fill(email);
-    //     await this.sendEmail.click();
-    // };
-    // async enterPassword(password) {
-    //     await this.passwordInput.fill(password);
-    //     await this.sendPassword.click();
-    // };
 };

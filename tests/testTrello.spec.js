@@ -23,7 +23,7 @@ test.describe('Test suite', async () => {
 
         const loginPage = new LoginPage(page);
         await loginPage.logIn(credentials.email, credentials.pw);
-        await expect(page).toHaveURL('');
+        await expect(page).toHaveURL(`u/${credentials.userName}/boards`);
     });
 
 
@@ -33,7 +33,6 @@ test.describe('Test suite', async () => {
 
     test.describe('create a new board', async () => {
         test('create a board whit UI', async () => {
-        // const uiHandling = new UiHandling(page);
         await boardsUi.createBoard(credentials.boardName);
         await expect(boardsUi.currentBoardName).toHaveText(credentials.boardName);
         });
