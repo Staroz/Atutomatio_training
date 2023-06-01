@@ -10,15 +10,23 @@ exports.LoginPage = class LoginPage {
         this.sendEmail = page.locator('[id="login"]');
         this.sendPassword = page.locator('[id="login-submit"]');
     };
-    async gotoPage() {
+    
+    async logIn(email, password) {
         await this.page.goto('login');
-    };
-    async enterEmail(email) {
         await this.emailInput.fill(email);
         await this.sendEmail.click();
-    };
-    async enterPassword(password) {
         await this.passwordInput.fill(password);
         await this.sendPassword.click();
     };
+    // async gotoPage() {
+    //     await this.page.goto('login');
+    // };
+    // async enterEmail(email) {
+    //     await this.emailInput.fill(email);
+    //     await this.sendEmail.click();
+    // };
+    // async enterPassword(password) {
+    //     await this.passwordInput.fill(password);
+    //     await this.sendPassword.click();
+    // };
 };

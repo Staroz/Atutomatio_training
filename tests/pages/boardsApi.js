@@ -2,7 +2,7 @@ const axios = require('axios');
 
 let boardId;
 
-exports.ApiCommands = class ApiCommands {
+exports.BoardsApi = class BoardsApi {
 
     /**
    * @param {import('@playwright/test').Page} page
