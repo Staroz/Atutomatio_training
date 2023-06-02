@@ -14,8 +14,8 @@ describe("Manipulating Workspaces in Trello", function() {
         cy.logout();
     });
 
-    describe("Create a work space whit UI", function () {
-		it("Create WS", function () {
+    describe("Create a workspace whit UI", function () {
+		it("Create workspace", function () {
 				cy.visit(`/u/" + ${this.credentials.userName} + "/boards`);
 				cy.createWorkSpace(this.credentials.workSpaceName);
                 cy.get('[data-testid="home-team-tab-name"]').contains(this.credentials.workSpaceName).should('be.visible');
@@ -30,16 +30,11 @@ describe("Manipulating Workspaces in Trello", function() {
 	describe("Delete a workspace whit UI", function () {
 		before(function() {
             cy.workSpaceCreateApi(this.credentials.key, this.credentials.token, this.credentials.workSpaceName);
-            cy.boardCreateApi(this.credentials.key, this.credentials.token, this.credentials.boardName);   
             });
 		it("Delete workspace", function() {
 			cy.visit('/u/'+this.credentials.userName +'/boards');
-            cy.boardDelete(this.credentials.boardName);
-            cy.get('[class="board-tile-details-name"]').should('not.exist');
+            cy.deleteWorkSpace(this.credentials.workSpaceName);
+            cy.get('[data-testid="home-team-tab-name"]').should('not.exist');
 		});
-
-        after(function() {
-            cy.workSpaceDeleteApi(this.credentials.key, this.credentials.token);
-        });
 	});
 });
