@@ -17,7 +17,7 @@ jobs:
       run: npm install -D @playwright/test
     - name: Recover the secret
       run: |
-          echo '${{ secrets.CREDENTIALS_E2E }}' > playwright/fixtures/credentials1.json
+          echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
     - name: Run Playwright tests
       run: npx playwright test testTrello
     - uses: actions/upload-artifact@v3

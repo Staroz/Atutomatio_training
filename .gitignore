@@ -1,2 +1,4 @@
 node_modules/
 test.cy.js/
+/test-results/
+/playwright/.cache/
