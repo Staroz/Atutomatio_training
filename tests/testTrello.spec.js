@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 const  credentials = require('../cypress/fixtures/credentials1.json');
 const { chromium } = require('@playwright/test');
-const { BoardsUi } = require('./pages/boardsUi');
+const { BoardsUi } = require('./pages/boardsUi.js');
 const { BoardsApi } = require('./pages/boardsApi');
 const { LoginPage } = require('./pages/loginPage.page');
 const axios = require('axios');

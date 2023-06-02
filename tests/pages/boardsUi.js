@@ -1,17 +1,19 @@
+const credentials = require('../../cypress/fixtures/credentials.json');
 
 exports.BoardsUi = class BoardsUi {
 
 	/**
 	 * @param {import('@playwright/test').Page} page
 	 */
-	constructor(page) {
+	constructor(page, userName) {
 		// general locators  
 		this.page = page;
-		this.loadPageOfBoards = page.goto('u/staroztesting/boards');
+		this.loadPageOfBoards = page.goto(`u/${credentials.userName}/boards`);
 		this.confirmDeletedBoardTitle = page.locator('[data-testid="close-board-big-message"]');
 		// create a board
-		this.createBoardBtn = page.locator('[data-testid="create-board-tile"]');
-		this.boardNameImput = page.getByTestId('create-board-title-input');
+		this.createBtn = page.locator('[data-testid="header-create-menu-button"]');
+		this.createBoardBtn = page.locator('[data-testid="header-create-board-button"]');
+		this.boardNameInput = page.getByTestId('create-board-title-input');
 		this.createNewBoardBtn = page.getByTestId('create-board-submit-button');
 		// update name of Board
 		this.selectBoard = page.locator('[class="board-tile-details is-badged"]');
@@ -25,17 +27,21 @@ exports.BoardsUi = class BoardsUi {
 		this.permanentlyDeleteBoardBtn= page.locator('[data-testid="close-board-delete-board-button"]'); 
 		this.confirmDeleteBoardBtn= page.locator('[data-testid="close-board-delete-board-confirm-button"]'); 
 	}
+
 	async createBoard(boardName) {
+		await this.createBtn.click()
 		await this.createBoardBtn.click();
-		await this.boardNameImput.fill(boardName);
+		await this.boardNameInput.fill(boardName);
 		await this.createNewBoardBtn.click();
 	};
+
 	async updateBoardName(boardName, newBoardName) {
 		await this.page.getByText(boardName).click();
 		await this.currentBoardName.click();
 		await this.updateBoardNameInput.fill(newBoardName);
 		await this.updateBoardNameInput.press('Enter');
 	};
+	
 	async deleteBoard(boardName) {
 		await this.page.getByText(boardName).click();
 		await this.menuIconBtn.click({force: true});
