@@ -2,9 +2,18 @@
 
 describe("Boards", function() {
     before(function() {
-        cy.fixture("credentials1.json").as('credentials');
+        cy.fixture("credentials.json").as('credentials');
     });
     
+    after(function () {
+        cy.visit('/u/'+this.credentials.userName +'/boards');
+        cy.get('[data-testid="home-team-tab-name"]').invoke('text').then((data)=>{
+            const workSpaceName= data;
+            cy.deleteWorkSpace(workSpaceName);
+        })
+        cy.logout();
+	});
+
     beforeEach(function () {
         cy.login(this.credentials.email, this.credentials.pw, this.credentials.userName);
 	});
@@ -46,9 +55,7 @@ describe("Boards", function() {
 		it("Delete a Board", function() {
 			cy.visit('/u/'+this.credentials.userName +'/boards');
             cy.boardDelete(this.credentials.boardName);
+            cy.get('[data-testid="board-name-display"]').should('not.exist');
 		});
-	});
-    after(() => {
-        cy.logout();
 	});
 });

@@ -1,12 +1,11 @@
 const { defineConfig } = require("cypress");
-//const cucumber = require('cypress-cucumber-preprocessor').default;
-
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
 const addCucumberPreprocessorPlugin = require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild").createEsbuildPlugin;
 
 module.exports = defineConfig({
-  defaultCommandTimeout: 20000,
+  requestTimeout: 1500,
+  defaultCommandTimeout: 50000,
   viewportWidth: 1200,
   viewportHeight: 660,
   experimentalModifyObstructiveThirdPartyCode: true,

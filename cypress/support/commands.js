@@ -1,23 +1,7 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-function getId(arr, boardName) {
-	let ans = "";
-	for (let index = 0; index < arr.length; index++) {
-		const element = arr[index];
-		if (element.name === boardName) {
-			ans = element.id;
-			break;
-		} else {
-			ans = "ERROR, THIS BOARD NAME DOESN'T EXIT";
-		}
-	}
-	return ans;
-}
+import { getWSId, getId } from "./functions";
 
+//LOGIN AND LOGOUT
 Cypress.Commands.add('login', (email, pw, userName) => {
-
     cy.session('trelloLogin', () => {
         cy.visit('/home');
         cy.get('.Buttonsstyles__ButtonGroup-sc-1jwidxo-3 > [href="/login"]').click();
@@ -32,8 +16,41 @@ Cypress.Commands.add('login', (email, pw, userName) => {
 }); 
 
 Cypress.Commands.add('logout', ()=> {
-    cy.get('.DweEFaF5owOe02').click();
+    cy.get('[class="OUdAuicP657Tka"]').click();
     cy.get('[data-testid="account-menu-logout"]').click();
+});
+
+// HANDLING WORKSPACES AND BOARD WITH UI.
+Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
+    // I did triple-click for a bug in this button, the "force:true" method does not work.
+    cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
+    cy.get('[data-testid="header-create-team-button"]').click();
+    cy.get('[data-testid="header-create-team-name-input"]').type(workSpaceName)
+    cy.get('div [class=" css-1og2rpm"]').click(); 
+    cy.contains('Education').click({force: true});
+    cy.wait(1500);
+    cy.get('[data-testid="header-create-team-submit-button"]').click();
+    cy.get('[data-testid="show-later-button"]').click(); 
+});
+
+Cypress.Commands.add('deleteWorkSpace', (workSpaceName) => {
+    cy.get('[data-testid="home-team-settings-tab"]').click();
+    cy.get('[data-testid="delete-workspace-button"]').click();
+    cy.get('[id="confirmWorkspaceName"]').type(workSpaceName);
+    cy.wait(1500);
+    cy.get('[data-testid="delete-workspace-confirm-button"]').click();
+});
+
+Cypress.Commands.add('createBoard', (boardName)=>{
+    cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
+    cy.get('[data-testid="header-create-board-button"]').click();
+    cy.get('[data-testid="create-board-title-input"]').type(boardName);
+    cy.get('[data-testid="create-board-submit-button"]').click();
+});
+
+Cypress.Commands.add('modifyBoardName', (boardName, newBoardName)=> {
+    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.get('[data-testid="board-name-display"]').type(newBoardName+'{enter}');
 });
 
 Cypress.Commands.add('boardDelete', (boardName) => {
@@ -46,18 +63,7 @@ Cypress.Commands.add('boardDelete', (boardName) => {
     cy.get('[data-testid="close-board-delete-board-confirm-button"]').click();
 });
 
-Cypress.Commands.add('createBoard', (boardName)=>{
-    cy.get('[data-testid="create-board-tile"]').contains('Create new board').click();
-    cy.get('[data-testid="create-board-title-input"]').type(boardName);
-    cy.get('[data-testid="create-board-submit-button"]').click();
-});
-
-Cypress.Commands.add('modifyBoardName', (boardName, newBoardName)=> {
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
-    cy.get('[data-testid="board-name-display"]').type(newBoardName+'{enter}');
-        
-});
-
+//MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
     cy.request({
         url: `${Cypress.env('urlApi')}/boards/?name=${boardName}&key=${key}&token=${token}`,
@@ -70,7 +76,6 @@ Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
 });
 
 Cypress.Commands.add('boardUpdateApi', function(key, token, newBoardName) {
-
     cy.request({
         url: `${Cypress.env('urlApi')}/boards/${this.id}?&key=${key}&token=${token}&name=${newBoardName}`,
         method: 'PUT'
@@ -80,43 +85,53 @@ Cypress.Commands.add('boardUpdateApi', function(key, token, newBoardName) {
 });
 
 Cypress.Commands.add('boardDeleteApi', function(key, token) {
-
         cy.request({
         url: `${Cypress.env('urlApi')}/boards/${this.boardId}?key=${key}&token=${token}`,
         method: 'DELETE',
         }).then(response=>{
                 expect(response.status).to.eq(200);
             });
-    })
-
-
-    Cypress.Commands.add('getBoardId', function (key,token, boardName) {
-        cy.request({
-            url: `${Cypress.env('urlApi')}/members/me/boards?key=${key}&token=${token}`,
-            method: "GET",
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-            let boardId = getId(response.body, boardName);
-            cy.wrap(boardId).as('boardId');
-        });
     });
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add('getBoardId', function (key,token, boardName) {
+    cy.request({
+        url: `${Cypress.env('urlApi')}/members/me/boards?key=${key}&token=${token}`,
+        method: "GET",
+    }).then((response) => {
+        expect(response.status).to.eq(200);
+        let boardId = getId(response.body, boardName);
+        cy.wrap(boardId).as('boardId');
+    });
+});
+
+Cypress.Commands.add('getWorkSpacedId', function (key,token, workSpaceName) {
+    cy.request({
+        url: `${Cypress.env('urlApi')}/members/me/organizations?key=${key}&token=${token}`,
+        method: "GET",
+    }).then((response) => {
+        expect(response.status).to.eq(200);
+        let workSpaceId = getWSId(response.body, workSpaceName);
+        cy.wrap(workSpaceId).as('workSpaceId');
+    });
+});
+
+Cypress.Commands.add('workSpaceDeleteApi', function(key, token) {
+    cy.request({
+    url: `${Cypress.env('urlApi')}/organizations/${this.workSpaceId}?key=${key}&token=${token}`,
+    method: 'DELETE',
+    }).then(response=>{
+            expect(response.status).to.eq(200);
+        });
+});
+
+Cypress.Commands.add('workSpaceCreateApi', function(key, token, workSpaceName) {
+    cy.request({
+        url: `${Cypress.env('urlApi')}/organizations/?displayName=${workSpaceName}&key=${key}&token=${token}`,
+        method: 'POST',
+        }).then(function(response){
+            expect(response.status).to.eq(200);
+            const workSpaceId = response.body.id;
+            cy.wrap(workSpaceId).as('workSpaceId');
+            });
+});

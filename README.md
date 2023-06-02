@@ -15,6 +15,7 @@ I'd be happy if you leave me any observations or feedback, and if you want to fo
   "boardName": "name 1",
   "newBoardName": "name 2",
   "userName": "username of Trello"
+  "workSpaceName": "WS name"
   }
 
   Thanks.
