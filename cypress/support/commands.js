@@ -1,6 +1,6 @@
 import { getWSId, getId } from "./functions";
 
-let workSpaceId, BoardId;
+let workSpaceId, boardId;
 //LOGIN AND LOGOUT
 Cypress.Commands.add('login', (email, pw, userName) => {
     cy.session('trelloLogin', () => {
@@ -63,34 +63,30 @@ Cypress.Commands.add('boardDelete', (boardName) => {
     cy.get('[data-testid="close-board-delete-board-button"]').click();
     cy.get('[data-testid="close-board-delete-board-confirm-button"]').click();
 });
+
 // LIST HANDLING WITH UI.
-
-
 Cypress.Commands.add('createLists', (boardName, listNameArray) => {
-    
     cy.get('[class="board-tile-details-name"]').contains(boardName).click();
     cy.get('[class="placeholder"]').click();
         for (let index = 0; index < listNameArray.length; index++) {
             if (listNameArray) {
                 cy.get('[class="list-name-input"]').type(listNameArray[index] +'{enter}');
             } else {
-                cy.log('You should be to o type an array whit Lists names')
+                cy.log('You should be to o type an array whit Lists names');
             }
-        }
+        };
     cy.get('[class="icon-lg icon-close dark-hover js-cancel-edit"]').click();
-
 });
+
 Cypress.Commands.add('deleteLists', (boardName) => {
-    
     cy.get('[class="board-tile-details-name"]').contains(boardName).click();
-    cy.get('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]').then(($values)=> {
+    cy.get('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]').then(($values) => {
         for (let index = $values.length; index > 0; index--) {
             cy.get('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]').first().click();
             cy.get('[class="js-close-list"]').click();
         }
     });
 });
-
 
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
@@ -124,7 +120,6 @@ Cypress.Commands.add('boardDeleteApi', function(key, token) {
                 expect(response.status).to.eq(200);
             });
     });
-
 
 Cypress.Commands.add('getBoardId', function (key,token, boardName) {
     cy.request({
