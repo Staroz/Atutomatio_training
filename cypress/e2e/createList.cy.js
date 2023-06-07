@@ -21,15 +21,10 @@ describe("Create lists in a board of Trello", function() {
             cy.workSpaceCreateApi(this.credentials.key, this.credentials.token, this.credentials.workSpaceName);
             cy.boardCreateApi(this.credentials.key, this.credentials.token, this.credentials.boardName); }); 
         it("Create lists", function () {
-            const listNameArray = [
-                this.credentials.listName1, 
-                this.credentials.listName2, 
-                this.credentials.listName3
-            ];
 				cy.visit(`/u/" + ${this.credentials.userName} + "/boards`);
-                cy.createLists(this.credentials.boardName, listNameArray);
+                cy.createLists(this.credentials.boardName, this.credentials.listNameArray);
                 cy.get('[class="list-header-name-assist js-list-name-assist"]').then(($title)=>{
-                    expect($title.text()).to.equal(listNameArray.join(''));
+                    expect($title.text()).to.equal(this.credentials.listNameArray.join(''));
                 });
 		});
 

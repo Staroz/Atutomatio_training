@@ -69,11 +69,7 @@ Cypress.Commands.add('createLists', (boardName, listNameArray) => {
     cy.get('[class="board-tile-details-name"]').contains(boardName).click();
     cy.get('[class="placeholder"]').click();
         for (let index = 0; index < listNameArray.length; index++) {
-            if (listNameArray) {
-                cy.get('[class="list-name-input"]').type(listNameArray[index] +'{enter}');
-            } else {
-                cy.log('You should be to o type an array whit Lists names');
-            }
+            cy.get('[class="list-name-input"]').type(listNameArray[index] +'{enter}');
         };
     cy.get('[class="icon-lg icon-close dark-hover js-cancel-edit"]').click();
 });

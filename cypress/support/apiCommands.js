@@ -13,8 +13,7 @@ async function deleteWorkspaces() {
     const organizations = response.data;
 
     for (const organization of organizations) {
-      // console.log(organization);
-      // console.log(organization.boardId);
+
       await axios.delete(
         `https://api.trello.com/1/boards/${organization.idBoards}?&key=${apiKey}&token=${apiToken}`
       );
@@ -23,12 +22,12 @@ async function deleteWorkspaces() {
         
       );
 
-      console.log(`Se eliminó el workspace: ${organization.displayName}`);
+      console.log(`This workspace was deleted: ${organization.displayName}`);
     }
 
-    console.log('Todos los workspaces fueron eliminados.');
+    console.log('All workspaces and boards were deleted');
   } catch (error) {
-    console.error('Ocurrió un error al eliminar los workspaces:', error);
+    console.error('This was the error when deleting the workspaces:', error);
   }
 }
 
