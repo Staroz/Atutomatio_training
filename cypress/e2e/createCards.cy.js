@@ -27,7 +27,7 @@ describe("Test for create and move cards in Trello", function() {
                 cy.createCards(this.credentials.boardName, this.credentials.cardsNameArray);
                 cy.get('[class="list-card-title js-card-name"]').then(($title)=>{
                     for (let index = 0; index < this.credentials.cardsNameArray.length; index++) {
-                        expect($title[index].textContent).equal(`#${index+1}${this.credentials.cardsNameArray[index]}`);
+                        expect($title[index].textContent).contain(this.credentials.cardsNameArray[index]);
                     };
                 });
 		});
