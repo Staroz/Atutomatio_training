@@ -3,9 +3,9 @@
 This Repository has Tests of the web of Trello, the libraries that were used in this project are:
 
 ~ Cypress
-~ Playwritght
+~ Playwright
 
-I'd be happy if you leave me any observations or feedback, and if you want to fork this proyect and run this project in local, you should create a file "cypress/fixtures/credentials1.json" and fill these information:
+I'd be happy if you leave me any observations or feedback, and if you want to fork this project and run this project in local, you should create a file "cypress/fixtures/credentials1.json" and fill these information:
 
 {
   "email": "example@email.com",
@@ -15,7 +15,11 @@ I'd be happy if you leave me any observations or feedback, and if you want to fo
   "boardName": "name 1",
   "newBoardName": "name 2",
   "userName": "username of Trello"
-  "workSpaceName": "WS name"
+  "workSpaceName": "WS name",
+  "listNameArray1": [
+                      "listName 1", 
+                      "listName 2",
+                      "listName 3"]
   }
 
   Thanks.

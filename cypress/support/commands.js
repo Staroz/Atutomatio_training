@@ -1,5 +1,6 @@
 import { getWSId, getId } from "./functions";
 
+let workSpaceId, boardId;
 //LOGIN AND LOGOUT
 Cypress.Commands.add('login', (email, pw, userName) => {
     cy.session('trelloLogin', () => {
@@ -63,21 +64,44 @@ Cypress.Commands.add('boardDelete', (boardName) => {
     cy.get('[data-testid="close-board-delete-board-confirm-button"]').click();
 });
 
+// LIST HANDLING WITH UI.
+Cypress.Commands.add('createLists', (boardName, listNameArray) => {
+    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.get('[class="placeholder"]').click();
+        for (let index = 0; index < listNameArray.length; index++) {
+            cy.get('[class="list-name-input"]').type(listNameArray[index] +'{enter}');
+        };
+    cy.get('[class="icon-lg icon-close dark-hover js-cancel-edit"]').click();
+});
+
+Cypress.Commands.add('deleteLists', (boardName) => {
+    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.get('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]').then(($values) => {
+        for (let index = $values.length; index > 0; index--) {
+            cy.get('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]').first().click();
+            cy.get('[class="js-close-list"]').click();
+        }
+    });
+});
+
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
     cy.request({
         url: `${Cypress.env('urlApi')}/boards/?name=${boardName}&key=${key}&token=${token}`,
         method: 'POST',
+        body: {
+            defaultLists: false
+        }
         }).then(function(response){
             expect(response.status).to.eq(200);
-            const id = response.body.id;
-            cy.wrap(id).as('id');
+            boardId = response.body.id;
+            cy.wrap(boardId).as('boardId');
             });
 });
 
 Cypress.Commands.add('boardUpdateApi', function(key, token, newBoardName) {
     cy.request({
-        url: `${Cypress.env('urlApi')}/boards/${this.id}?&key=${key}&token=${token}&name=${newBoardName}`,
+        url: `${Cypress.env('urlApi')}/boards/${boardId}?&key=${key}&token=${token}&name=${newBoardName}`,
         method: 'PUT'
     }).then(response => {
         expect(response.status).to.eq(200);
@@ -86,13 +110,12 @@ Cypress.Commands.add('boardUpdateApi', function(key, token, newBoardName) {
 
 Cypress.Commands.add('boardDeleteApi', function(key, token) {
         cy.request({
-        url: `${Cypress.env('urlApi')}/boards/${this.boardId}?key=${key}&token=${token}`,
+        url: `${Cypress.env('urlApi')}/boards/${boardId}?key=${key}&token=${token}`,
         method: 'DELETE',
         }).then(response=>{
                 expect(response.status).to.eq(200);
             });
     });
-
 
 Cypress.Commands.add('getBoardId', function (key,token, boardName) {
     cy.request({
@@ -100,7 +123,7 @@ Cypress.Commands.add('getBoardId', function (key,token, boardName) {
         method: "GET",
     }).then((response) => {
         expect(response.status).to.eq(200);
-        let boardId = getId(response.body, boardName);
+        boardId = getId(response.body, boardName);
         cy.wrap(boardId).as('boardId');
     });
 });
@@ -111,18 +134,9 @@ Cypress.Commands.add('getWorkSpacedId', function (key,token, workSpaceName) {
         method: "GET",
     }).then((response) => {
         expect(response.status).to.eq(200);
-        let workSpaceId = getWSId(response.body, workSpaceName);
+        workSpaceId = getWSId(response.body, workSpaceName);
         cy.wrap(workSpaceId).as('workSpaceId');
     });
-});
-
-Cypress.Commands.add('workSpaceDeleteApi', function(key, token) {
-    cy.request({
-    url: `${Cypress.env('urlApi')}/organizations/${this.workSpaceId}?key=${key}&token=${token}`,
-    method: 'DELETE',
-    }).then(response=>{
-            expect(response.status).to.eq(200);
-        });
 });
 
 Cypress.Commands.add('workSpaceCreateApi', function(key, token, workSpaceName) {
@@ -131,7 +145,16 @@ Cypress.Commands.add('workSpaceCreateApi', function(key, token, workSpaceName) {
         method: 'POST',
         }).then(function(response){
             expect(response.status).to.eq(200);
-            const workSpaceId = response.body.id;
+            workSpaceId = response.body.id;
             cy.wrap(workSpaceId).as('workSpaceId');
             });
+});
+
+Cypress.Commands.add('workSpaceDeleteApi', function(key, token) {
+    cy.request({
+    url: `${Cypress.env('urlApi')}/organizations/${workSpaceId}?key=${key}&token=${token}`,
+    method: 'DELETE',
+    }).then(response=>{
+            expect(response.status).to.eq(200);
+        });
 });

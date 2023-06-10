@@ -55,6 +55,7 @@ describe("Boards", function() {
 		it("Delete a Board", function() {
 			cy.visit('/u/'+this.credentials.userName +'/boards');
             cy.boardDelete(this.credentials.boardName);
+            cy.wait(1500);
             cy.get('[data-testid="board-name-display"]').should('not.exist');
 		});
 	});

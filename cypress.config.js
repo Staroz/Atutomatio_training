@@ -5,7 +5,7 @@ const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esb
 
 module.exports = defineConfig({
   requestTimeout: 1500,
-  defaultCommandTimeout: 50000,
+  defaultCommandTimeout: 20000,
   viewportWidth: 1200,
   viewportHeight: 660,
   experimentalModifyObstructiveThirdPartyCode: true,
