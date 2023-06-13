@@ -23,7 +23,7 @@ test.describe('Testing workspaces in Trello', async () => {
 
         const loginPage = new LoginPage(page);
         await loginPage.logIn(credentials.email, credentials.pw);
-        await expect(page).toHaveURL('');
+        await expect(page).toHaveURL(`u/${credentials.userName}/boards`);
     });
 
 
