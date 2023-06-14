@@ -16,10 +16,8 @@ I'd be happy if you leave me any observations or feedback, and if you want to fo
   "newBoardName": "name 2",
   "userName": "username of Trello"
   "workSpaceName": "WS name",
-  "listNameArray1": [
-                      "listName 1", 
-                      "listName 2",
-                      "listName 3"]
+  "listNameArray": ["listName 1", ....],
+  "cardsNameArray": ["cardName1", ...],
   }
 
   Thanks.

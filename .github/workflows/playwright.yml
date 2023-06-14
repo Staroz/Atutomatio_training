@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Playwright Tests
 on: push
 jobs:
@@ -20,3 +21,5 @@ jobs:
           echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
     - name: Run Playwright tests
       run: npx playwright test
+=======
+>>>>>>> main

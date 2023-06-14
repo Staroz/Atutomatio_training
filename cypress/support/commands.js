@@ -1,4 +1,5 @@
 import { getWSId, getId } from "./functions";
+import '@4tw/cypress-drag-drop'
 
 let workSpaceId, boardId;
 //LOGIN AND LOGOUT
@@ -84,6 +85,28 @@ Cypress.Commands.add('deleteLists', (boardName) => {
     });
 });
 
+// CARDS HANDLING WITH UI.
+Cypress.Commands.add('createCards', (boardName, cardsNameArray) => {
+    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.get('[class="js-add-a-card"]').first().click();
+        for (let index = 0; index < cardsNameArray.length; index++) {
+            cy.get('[class="list-card-composer-textarea js-card-title"]').type(cardsNameArray[index] +'{enter}');
+        };
+    cy.get('[class="icon-lg icon-close dark-hover js-cancel"]').click();
+});
+
+Cypress.Commands.add('joinBoard', (userName, boardName) => {
+    cy.visit(`/u/" + ${userName} + "/boards`);
+    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+});
+
+Cypress.Commands.add('moveCard', ( cardName, listName) => {
+    cy.get('[class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable"]')
+        .contains('[class="list js-list-content"]', listName).as('element');
+    cy.get('[class="list-card-details js-card-details"]').contains(cardName).drag('@element');
+    
+});
+
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
     cy.request({
@@ -157,4 +180,14 @@ Cypress.Commands.add('workSpaceDeleteApi', function(key, token) {
     }).then(response=>{
             expect(response.status).to.eq(200);
         });
+});
+Cypress.Commands.add('createListsApi', function(key, token, listNameArray ) {
+    for (let index = listNameArray.length - 1; index > -1; index--) {
+        cy.request({
+            url: `${Cypress.env('urlApi')}/lists?name=${listNameArray[index]}&idBoard=${boardId}&key=${key}&token=${token}`,
+            method: 'POST',
+            }).then(response=>{
+                    expect(response.status).to.eq(200);
+                });
+            }
 });
