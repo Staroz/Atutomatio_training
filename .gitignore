@@ -3,3 +3,6 @@ test.cy.js/
 /test-results/
 /playwright/.cache/
 /apiCommands.js/
+/test-results/
+/playwright-report/
+/playwright/.cache/

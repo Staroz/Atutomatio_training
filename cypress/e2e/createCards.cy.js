@@ -2,7 +2,7 @@
 
 describe("Test for create and move cards in Trello", function() {
     before(function() {
-        cy.fixture("credentials.json").as('credentials');
+        cy.fixture("credentials1.json").as('credentials');
     });
     
     beforeEach(function () {
