@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test:ui": "cypress open",
-    "test:cards": "npx cypress run --spec cypress/e2e/updateCards.cy.js",
+    "test:cards": "cypress run --spec cypress/e2e/updateCards.cy.js",
     "test:p": "npx playwright test testTrello"
   },
   "dependencies": {
