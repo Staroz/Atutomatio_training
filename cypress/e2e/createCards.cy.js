@@ -2,7 +2,7 @@
 
 describe("Test for create and move cards in Trello", function() {
     before(function() {
-        cy.fixture("credentials1.json").as('credentials');
+        cy.fixture("credentials.json").as('credentials');
     });
     
     beforeEach(function () {
@@ -18,6 +18,7 @@ describe("Test for create and move cards in Trello", function() {
 
     describe("Manage of Cards", function () {
         before(function() {
+            //Creating workspace, board,and list with API.
             cy.workSpaceCreateApi(this.credentials.key, this.credentials.token, this.credentials.workSpaceName);
             cy.boardCreateApi(this.credentials.key, this.credentials.token, this.credentials.boardName);
             cy.createListsApi(this.credentials.key, this.credentials.token, this.credentials.listNameArray); 
@@ -33,7 +34,8 @@ describe("Test for create and move cards in Trello", function() {
 		});
 
         it("Move cards through the lists", function () {
-            cy.joinBoard(this.credentials.userName, this.credentials.boardName)
+            cy.visit(`/u/" + ${this.credentials.userName} + "/boards`);
+            cy.joinBoard(this.credentials.userName, this.credentials.boardName);
             cy.moveCard(this.credentials.cardsNameArray[0], this.credentials.listNameArray[1]);
             cy.get('[class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable"]')
                 .contains('[class="list js-list-content"]', this.credentials.listNameArray[1])

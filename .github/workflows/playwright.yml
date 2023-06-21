@@ -1,0 +1,22 @@
+name: Playwright Tests
+on: push
+jobs:
+    test:
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - name: Install dependencies
+          run: npm install
+        - name: Install Playwright Browsers
+          run: npx playwright install
+        - name: Install dep
+          run: npm install -D @playwright/test
+        - name: Recover the secret
+          run: |
+              echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
+        - name: Run Playwright tests
+          run: npx playwright test

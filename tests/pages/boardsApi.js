@@ -25,8 +25,17 @@ exports.BoardsApi = class BoardsApi {
     };
 
     async createBoardApi(boardName, key, token) {
-        const response = await axios.post(`https://api.trello.com/1/boards/?name=${boardName}&key=${key}&token=${token}`);
+        const response = await axios.post(`https://api.trello.com/1/boards/?name=${boardName}&key=${key}&token=${token}`, {
+            defaultLists: false
+        });
         boardId = response.data.id;
+        return response;
+    };
+    async createListsApi( key, token, listNameArray) {
+        let response;
+        for (let index = listNameArray.length - 1; index > -1; index--) {
+        response = await axios.post(`https://api.trello.com/1/lists?name=${listNameArray[index]}&idBoard=${boardId}&key=${key}&token=${token}`);
+        }
         return response;
     };
 
