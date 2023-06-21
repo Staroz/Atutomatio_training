@@ -15,4 +15,4 @@ jobs:
         run: |
           cat cypress/fixtures/credentials1.json
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: npm run test:cards
