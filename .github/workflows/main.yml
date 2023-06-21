@@ -15,4 +15,6 @@ jobs:
         run: |
           cat cypress/fixtures/credentials1.json
       - name: Cypress run
-        uses: npm run test:cards
+        uses: cypress-io/github-action@v5
+        with:
+            spec: cypress/e2e/updateCards.cy.js
