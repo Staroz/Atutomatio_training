@@ -1,5 +1,5 @@
 name: Board Test
-on: push
+on: 
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
