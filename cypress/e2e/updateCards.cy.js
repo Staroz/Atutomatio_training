@@ -28,7 +28,7 @@ describe("Test for update information of cards in Trello", function() {
         it("Add description in a card", function () {
             cy.joinBoard(this.credentials.userName, this.credentials.boardName);
             cy.addDescriptionInCard(this.credentials.cardsNameArray[0], this.credentials.descriptionText);
-            cy.get('[class="description-content js-desc-content"]').should('contain.text', this.credentials.descriptionText);
+            cy.get('[class="current markeddown hide-on-edit js-desc js-show-with-desc"]').should('contain.text', this.credentials.descriptionText);
         });
         it("Join a Member", function () {
             cy.joinBoard(this.credentials.userName, this.credentials.boardName);
