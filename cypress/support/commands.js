@@ -103,7 +103,7 @@ Cypress.Commands.add('joinBoard', (userName, boardName) => {
 Cypress.Commands.add('addDescriptionInCard', (cardName, descriptionText) => {
     cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
     cy.get('[data-testid="click-wrapper"]').click().type(descriptionText);
-    cy.get('[class="nch-button nch-button--primary confirm mod-submit-edit js-save-edit"]').click();
+    cy.get('[class="confirm js-save-edit bxgKMAm3lq5BpA SdamsUKjxSBwGb SEj5vUdI3VvxDc"]').click();
 });
 
 Cypress.Commands.add('addMember', (cardName, userName) => {

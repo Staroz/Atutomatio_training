@@ -19,6 +19,7 @@ jobs:
         with:
             spec: cypress/e2e/updateCards.cy.js
   test_Playwright:
+    needs: test_Cypress
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
