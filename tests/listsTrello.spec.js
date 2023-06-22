@@ -5,7 +5,6 @@ const { LoginPage } = require('./pages/loginPage.page');
 const { WorkspaceApi } = require('./pages/workspaceApi');
 const { BoardsApi } = require('./pages/boardsApi');
 const { ListsUi } = require('./pages/listsUi');
-const axios = require('axios');
 
 test.describe('Testing lists in Trello', async () => { 
     let browser, context, page, boardsApi, workspaceApi, listsUi;

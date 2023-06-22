@@ -18,6 +18,10 @@ I'd be happy if you leave me any observations or feedback, and if you want to fo
   "workSpaceName": "WS name",
   "listNameArray": ["listName 1", ....],
   "cardsNameArray": ["cardName1", ...],
+  "descriptionText": "A text",
+  "labelColor": {},
+  "checklistName": "Checklist 1",
+  "coverImageNumber": {}
   }
 
   Thanks.

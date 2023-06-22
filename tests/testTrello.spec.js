@@ -5,7 +5,6 @@ const { BoardsUi } = require('./pages/boardsUi.js');
 const { BoardsApi } = require('./pages/boardsApi');
 const { LoginPage } = require('./pages/loginPage.page');
 const { WorkspaceApi } = require('./pages/workspaceApi')
-const axios = require('axios');
 
 test.describe('Test suite', async () => { 
     let browser, context, page, boardsUi, boardsApi, workspaceApi;

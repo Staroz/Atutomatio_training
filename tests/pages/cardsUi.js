@@ -21,7 +21,7 @@ exports.CardsUi = class CardsUi {
         // Add description in a card.
         this.shadowTextBtn = page.locator('[class="description-fake-text-area js-description-fake-text-area hide-on-edit js-edit-desc js-hide-with-draft"]')
         this.descriptionTextInput = page.locator('[id="ak-editor-textarea"]');
-		this.descriptionTextSaveBtn = page.locator('[class="nch-button nch-button--primary confirm mod-submit-edit js-save-edit"]');
+		this.descriptionTextSaveBtn = page.locator('[class="confirm js-save-edit bxgKMAm3lq5BpA SdamsUKjxSBwGb SEj5vUdI3VvxDc"]');
         // Selector for add properties in a card
         this.addPropertiesBtn = page.locator('[class="js-sidebar-action-text"]');
         // Add member in card.
