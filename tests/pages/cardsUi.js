@@ -1,4 +1,4 @@
-const credentials = require('../../cypress/fixtures/credentials.json');
+const credentials = require('../../cypress/fixtures/credentials1.json');
 
 exports.CardsUi = class CardsUi {
 	/**
@@ -117,8 +117,8 @@ exports.CardsUi = class CardsUi {
     async addAttachment(cardName, attachmentLink, linkName) {
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Attachment').click();
-        await this.linkInput.type(attachmentLink);
-        await this.linkNameInput.type(linkName);
+        await this.linkInput.fill(attachmentLink);
+        await this.linkNameInput.fill(linkName);
         await this.attachConfirmBtn.click({force: true});
     };
 }

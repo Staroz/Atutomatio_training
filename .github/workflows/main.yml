@@ -17,7 +17,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-            spec: cypress/e2e/updateCards.cy.js
+            spec: cypress/e2e/attachOnCard.cy.js
   test_Playwright:
     needs: test_Cypress
     timeout-minutes: 60
@@ -37,4 +37,4 @@ jobs:
       run: |
           echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
     - name: Run Playwright tests
-      run: npx playwright test updateCards.spec.js
+      run: npx playwright test attachOnCard.spec.js

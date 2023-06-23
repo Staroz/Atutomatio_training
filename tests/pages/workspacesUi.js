@@ -1,4 +1,4 @@
-const credentials = require('../../cypress/fixtures/credentials.json');
+const credentials = require('../../cypress/fixtures/credentials1.json');
 
 exports.WorkspaceUi = class WorkspaceUi {
 
