@@ -6,6 +6,6 @@ test.cy.js/
 /test-results/
 playwright-report/
 /playwright/.cache/
-/cypress/screenshots/
-/cypress/videos/
+cypress/screenshots/
+cypress/videos/
 tests-examples/
