@@ -140,6 +140,13 @@ Cypress.Commands.add('moveCard', ( cardName, listName) => {
     cy.get('[class="list-card-details js-card-details"]').contains(cardName).drag('@element');
 });
 
+Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
+    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Attachment').click();
+    cy.get('[id="addLink"]').invoke('val', attachmentLink);
+    cy.get('[id="nameLink"]').invoke('val', linkName);
+    cy.get('[class="js-add-attachment-url"]').click();
+});
 
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
