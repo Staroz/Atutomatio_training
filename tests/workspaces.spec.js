@@ -4,7 +4,6 @@ const { chromium } = require('@playwright/test');
 const { LoginPage } = require('./pages/loginPage.page');
 const { WorkspaceUi } = require('./pages/workspacesUi');
 const { WorkspaceApi } = require('./pages/workspaceApi');
-const axios = require('axios');
 
 
 test.describe('Testing workspaces in Trello', async () => { 

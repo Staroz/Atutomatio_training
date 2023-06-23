@@ -1,8 +1,8 @@
 name: Board Test
-on: 
+on: push
 jobs:
-  cypress-run:
-    runs-on: ubuntu-20.04
+  test_Cypress:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -15,4 +15,26 @@ jobs:
         run: |
           cat cypress/fixtures/credentials1.json
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v5
+        with:
+            spec: cypress/e2e/updateCards.cy.js
+  test_Playwright:
+    needs: test_Cypress
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Install dependencies
+      run: npm install
+    - name: Install Playwright Browsers
+      run: npx playwright install
+    - name: Install dep
+      run: npm install -D @playwright/test
+    - name: Recover the secret
+      run: |
+          echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
+    - name: Run Playwright tests
+      run: npx playwright test updateCards.spec.js

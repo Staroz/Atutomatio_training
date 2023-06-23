@@ -1,7 +1,7 @@
 import { getWSId, getId } from "./functions";
-import '@4tw/cypress-drag-drop'
+require('@4tw/cypress-drag-drop')
 
-let workSpaceId, boardId;
+let workSpaceId, boardId, listId;
 //LOGIN AND LOGOUT
 Cypress.Commands.add('login', (email, pw, userName) => {
     cy.session('trelloLogin', () => {
@@ -18,7 +18,7 @@ Cypress.Commands.add('login', (email, pw, userName) => {
 }); 
 
 Cypress.Commands.add('logout', ()=> {
-    cy.get('[class="OUdAuicP657Tka"]').click();
+    cy.get('[data-testid="header-member-menu-button"]').click();
     cy.get('[data-testid="account-menu-logout"]').click();
 });
 
@@ -100,12 +100,46 @@ Cypress.Commands.add('joinBoard', (userName, boardName) => {
     cy.get('[class="board-tile-details-name"]').contains(boardName).click();
 });
 
+Cypress.Commands.add('addDescriptionInCard', (cardName, descriptionText) => {
+    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
+    cy.get('[data-testid="click-wrapper"]').click().type(descriptionText);
+    cy.get('[class="confirm js-save-edit bxgKMAm3lq5BpA SdamsUKjxSBwGb SEj5vUdI3VvxDc"]').click();
+});
+
+Cypress.Commands.add('addMember', (cardName, userName) => {
+    cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Members').click();
+    cy.get('[class="full-name"]').contains(userName).click();
+    cy.get('[class="pop-over-header-close-btn icon-sm icon-close"]').click();
+});
+
+Cypress.Commands.add('addLabels', (cardName, labelColor) => {
+    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Labels').click();
+    cy.get(`[data-color="${labelColor}"]`).click();
+    cy.get('[data-testid="popover-close"]').click();
+});
+
+Cypress.Commands.add('addChecklists', (cardName, checklistName) => {
+    cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Checklist').click();
+    cy.get('[id="id-checklist"]').type(checklistName+'{enter}');
+});
+
+Cypress.Commands.add('addCovers', (cardName, coverImageNumber) => {
+    cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Cover').click();
+    cy.wait(2000);
+    cy.get('[class="k5qq0MRUdPmpWq"]').eq(coverImageNumber).click();
+    cy.get('[class="pop-over-header-close-btn icon-sm icon-close"]').click()
+});
+
 Cypress.Commands.add('moveCard', ( cardName, listName) => {
     cy.get('[class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable"]')
         .contains('[class="list js-list-content"]', listName).as('element');
     cy.get('[class="list-card-details js-card-details"]').contains(cardName).drag('@element');
-    
 });
+
 
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
@@ -188,6 +222,23 @@ Cypress.Commands.add('createListsApi', function(key, token, listNameArray ) {
             method: 'POST',
             }).then(response=>{
                     expect(response.status).to.eq(200);
+                    listId = response.body.id;
+                    console.log('1111', response.body);
+                });
+            }
+            
+});
+
+Cypress.Commands.add('createCardApi', function(key, token, cardsNameArray ) {
+    for (let index = cardsNameArray.length - 1; index > -1; index--) {
+        cy.request({
+            url: `${Cypress.env('urlApi')}/cards?name=${cardsNameArray[index]}&idList=${listId}&key=${key}&token=${token}`,
+            method: 'POST',
+            }).then(response=>{
+                    expect(response.status).to.eq(200);
                 });
             }
 });
+
+
+

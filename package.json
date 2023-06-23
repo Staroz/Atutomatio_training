@@ -3,11 +3,12 @@
     "@4tw/cypress-drag-drop": "^2.2.4",
     "@badeball/cypress-cucumber-preprocessor": "^17.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
-    "@playwright/test": "^1.35.0",
+    "@playwright/test": "^1.35.1",
     "cypress": "^12.10.0"
   },
   "scripts": {
     "test:ui": "cypress open",
+    "test:cards": "cypress run --spec cypress/e2e/updateCards.cy.js",
     "test:p": "npx playwright test testTrello"
   },
   "dependencies": {
