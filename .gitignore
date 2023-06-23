@@ -8,5 +8,9 @@ playwright-report/
 /playwright/.cache/
 cypress/screenshots/
 cypress/videos/
+<<<<<<< HEAD
 tests-examples/
 
+=======
+tests-examples/
+>>>>>>> main
