@@ -148,6 +148,16 @@ Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
     cy.get('[class="js-add-attachment-url"]').click();
 });
 
+Cypress.Commands.add('copyCard', (cardName, newCardName, boardName, listName, cardPosition) => { 
+    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Copy').click();
+    cy.get('[class="js-autofocus"]').type(newCardName);
+    // cy.get('[class="value js-board-value"]').click({force: true});
+    cy.get('[class="value js-board-value"]').contains('2').click()
+    
+    // cy.get('[class="js-add-attachment-url"]').click();
+});
+
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
     cy.request({
