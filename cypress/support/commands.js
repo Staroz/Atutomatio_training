@@ -19,6 +19,7 @@ Cypress.Commands.add('login', (email, pw, userName) => {
 
 Cypress.Commands.add('logout', ()=> {
     cy.get('[data-testid="header-member-menu-button"]').click();
+    cy.wait(2000);
     cy.get('[data-testid="account-menu-logout"]').click();
 });
 
