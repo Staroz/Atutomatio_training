@@ -17,8 +17,10 @@ Cypress.Commands.add('login', (email, pw, userName) => {
     });
 }); 
 
-Cypress.Commands.add('logout', ()=> {
+Cypress.Commands.add('logout', (userName)=> {
+    cy.visit(`/u/" + ${userName} + "/boards`);
     cy.get('[data-testid="header-member-menu-button"]').click();
+    cy.wait(2000);
     cy.get('[data-testid="account-menu-logout"]').click();
 });
 
@@ -28,7 +30,7 @@ Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
     cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
     cy.get('[data-testid="header-create-team-button"]').click();
     cy.get('[data-testid="header-create-team-name-input"]').type(workSpaceName)
-    cy.get('div [class=" css-1og2rpm"]').click(); 
+    cy.get('[class="t3Ou6F9HZxP3VK css-ufz0vj-control"]').click(); 
     cy.contains('Education').click({force: true});
     cy.wait(1500);
     cy.get('[data-testid="header-create-team-submit-button"]').click();
@@ -140,6 +142,13 @@ Cypress.Commands.add('moveCard', ( cardName, listName) => {
     cy.get('[class="list-card-details js-card-details"]').contains(cardName).drag('@element');
 });
 
+Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
+    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Attachment').click();
+    cy.get('[id="addLink"]').invoke('val', attachmentLink);
+    cy.get('[id="nameLink"]').invoke('val', linkName);
+    cy.get('[class="js-add-attachment-url"]').click();
+});
 
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {

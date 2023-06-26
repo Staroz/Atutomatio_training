@@ -10,10 +10,9 @@ describe("Create lists in a board of Trello", function() {
 	});
 
     after(function() {
-        cy.visit('/u/'+this.credentials.userName +'/boards');
         cy.boardDeleteApi(this.credentials.key, this.credentials.token);
         cy.workSpaceDeleteApi(this.credentials.key, this.credentials.token);
-        cy.logout();
+        cy.logout(this.credentials.userName);
     });
 
     describe("Create and delete lists with UI", function () {

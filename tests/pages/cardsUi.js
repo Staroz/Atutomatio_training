@@ -39,7 +39,11 @@ exports.CardsUi = class CardsUi {
         this.coverClassBtn = page.locator('[class="k5qq0MRUdPmpWq"]');
         this.closeCoverWindowBtn = page.locator('[class="pop-over-header-close-btn icon-sm icon-close"]');
         this.coverInterface = page.locator('[class="window-cover js-card-cover-box js-stickers-area is-covered"]');
-        
+        // Add attachment in a card.
+        this.linkInput = page.locator('[id="addLink"]');
+        this.linkNameInput = page.locator('[id="nameLink"]');
+        this.attachConfirmBtn = page.locator('[class="js-add-attachment-url"]');
+        this.attachmentList = page.locator('[class="u-clearfix js-attachment-list ui-sortable"]');
     }
 
 	async createCards(boardName, listName, cardsNameArray) {
@@ -109,6 +113,13 @@ exports.CardsUi = class CardsUi {
         await this.addPropertiesBtn.getByText('Cover').click();
         await this.coverClassBtn.nth(coverImageNumber).click();
         await this.closeCoverWindowBtn.click();
+    };
+    async addAttachment(cardName, attachmentLink, linkName) {
+        await this.cardSelector.getByText(cardName).click();
+        await this.addPropertiesBtn.getByText('Attachment').click();
+        await this.linkInput.fill(attachmentLink);
+        await this.linkNameInput.fill(linkName);
+        await this.attachConfirmBtn.click({force: true});
     };
 }
 
