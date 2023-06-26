@@ -16,6 +16,8 @@ jobs:
           cat cypress/fixtures/credentials1.json
       - name: Cypress run
         uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
   test_Playwright:
     needs: test_Cypress
     timeout-minutes: 60

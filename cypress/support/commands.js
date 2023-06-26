@@ -150,22 +150,15 @@ Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
     cy.get('[class="js-add-attachment-url"]').click();
 });
 
-Cypress.Commands.add('copyCard', (cardName, newCardName, boardName, listName, cardPosition) => { 
+Cypress.Commands.add('copyCard', (cardName, copyCardName, boardName, listName, cardPosition) => { 
     cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
     cy.get('[class="js-sidebar-action-text"]').contains('Copy').click();
-    cy.get('[class="js-autofocus"]').type(newCardName);
-    // cy.get('[class="js-select-board"]').select(boardName+' (current)').click();
+    cy.get('[class="js-autofocus"]').type(copyCardName);
     cy.get('select.js-select-board').select(boardName+' (current)');
     cy.get('select.js-select-list').select(listName);
     cy.get('select.js-select-position').select(cardPosition);
-    
-    // cy.contains(listName).click({force: true});
     cy.get('[class="nch-button nch-button--primary wide js-submit"]').click({force: true});
     cy.get('[class="icon-md icon-close dialog-close-button js-close-window"]').click();
-
-    // cy.get('select[data-testid="move-card-popover-select-list-destination"]').select(listName).click();
-    
-    // cy.get('[class="js-add-attachment-url"]').click();
 });
 
 //MANAGEMENT WORKSPACES AND BOARD WITH API

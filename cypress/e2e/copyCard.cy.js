@@ -1,10 +1,8 @@
 /// <reference types= "cypress" />
 
-
-
-describe("Test for  attachment a link in a card of Trello", function() {
+describe("Copy a cards in another list", function() {
     before(function() {
-        cy.fixture("credentials.json").as('credentials');
+        cy.fixture("credentials1.json").as('credentials');
     });
     
     beforeEach(function () {
@@ -16,10 +14,10 @@ describe("Test for  attachment a link in a card of Trello", function() {
         cy.visit('/u/'+this.credentials.userName +'/boards');
         cy.boardDeleteApi(this.credentials.key, this.credentials.token);
         cy.workSpaceDeleteApi(this.credentials.key, this.credentials.token);
-        cy.logout();
+        cy.logout(this.credentials.userName);
     });
 
-    describe("Attach link in a card", function () {
+    describe("Copy a card", function () {
         before(function() {
             //Creating workspace, board, list and card with API.
             cy.workSpaceCreateApi(this.credentials.key, this.credentials.token, this.credentials.workSpaceName);
@@ -27,10 +25,10 @@ describe("Test for  attachment a link in a card of Trello", function() {
             cy.createListsApi(this.credentials.key, this.credentials.token, this.credentials.listNameArray); 
             cy.createCardApi(this.credentials.key, this.credentials.token, [this.credentials.cardsNameArray[0]]); 
         });
-        it("Attach", function () {
+        it("Copy Card 01 to In Progress list", function () {
             cy.joinBoard(this.credentials.userName, this.credentials.boardName);
-            cy.copyCard(this.credentials.cardsNameArray[0], this.credentials.copiedCardInfo.newCardName, this.credentials.boardName, this.credentials.listNameArray[1], this.credentials.copiedCardInfo.positionOfCard);
-            cy.get('[data-testid="list"]').should('contain.text', this.credentials.copiedCardInfo.newCardName);
+            cy.copyCard(this.credentials.cardsNameArray[0], this.credentials.copiedCardInfo.copyCardName, this.credentials.boardName, this.credentials.listNameArray[1], this.credentials.copiedCardInfo.positionOfCard);
+            cy.get('[data-testid="list"]').contains('[class="list js-list-content"]', this.credentials.listNameArray[1]).children().should('contain.text', this.credentials.copiedCardInfo.copyCardName);
         });
     });
 });

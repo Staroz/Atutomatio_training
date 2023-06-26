@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const  credentials = require('../cypress/fixtures/credentials.json');
+const  credentials = require('../cypress/fixtures/credentials1.json');
 const { chromium } = require('@playwright/test');
 const { LoginPage } = require('./pages/loginPage.page');
 const { WorkspaceApi } = require('./pages/workspaceApi');
@@ -7,7 +7,7 @@ const { BoardsApi } = require('./pages/boardsApi');
 const { CardsUi } = require('./pages/cardsUi')
 
 
-test.describe('Testing cards in Trello (Attachment)', async () => { 
+test.describe('Copy a cards in another list', async () => { 
     let browser, context, page, boardsApi, workspaceApi, cardsUi;
 
     test.beforeEach (async({ page })=> {
@@ -31,7 +31,7 @@ test.describe('Testing cards in Trello (Attachment)', async () => {
         await browser.close();
     });
     
-    test.describe('Add attachment in a card', async () => {
+    test.describe('Copy a card', async () => {
         
         test.beforeAll(async () => {
             // Creating workspace, board, lists and cards whit API.
@@ -45,21 +45,21 @@ test.describe('Testing cards in Trello (Attachment)', async () => {
         expect(cardsApiResponse.status).toBe(200);
         });
 
-        test('Attach a link in a card', async () => {
+        test('Copy Card 01 to In Progress list', async () => {
             await cardsUi.loadPageOfBoards;
             await cardsUi.enterBoardBtn.getByText(credentials.boardName).first().click();
-            await cardsUi.addAttachment(credentials.cardsNameArray[0], credentials.attachmentInfo.link, credentials.attachmentInfo.linkName );
-            await expect(cardsUi.attachmentList).toContainText(credentials.attachmentInfo.linkName);
+            await cardsUi.copyCard(credentials.cardsNameArray[0], credentials.copiedCardInfo.copyCardName, credentials.boardName, credentials.listNameArray[1], credentials.copiedCardInfo.positionOfCard);
+            await expect(cardsUi.listBlockLocator.filter({hasText: credentials.listNameArray[1]})).toContainText(credentials.copiedCardInfo.copyCardName);
             
         });
 
-        // test.afterAll(async () => {
-        //     // Deleting boards and workspaces
-        // const boardApiResponse = await boardsApi.deleteBoardApi(credentials.key, credentials.token);
-        // expect(boardApiResponse.status).toBe(200);  
-        // const workspaceResponseApi = await workspaceApi.deleteWorkspaceApi(credentials.key, credentials.token);
-        // expect(workspaceResponseApi.status).toBe(200);
-        // });
+        test.afterAll(async () => {
+            // Deleting boards and workspaces
+        const boardApiResponse = await boardsApi.deleteBoardApi(credentials.key, credentials.token);
+        expect(boardApiResponse.status).toBe(200);  
+        const workspaceResponseApi = await workspaceApi.deleteWorkspaceApi(credentials.key, credentials.token);
+        expect(workspaceResponseApi.status).toBe(200);
+        });
     });
 });
 
