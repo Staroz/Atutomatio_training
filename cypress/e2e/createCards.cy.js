@@ -10,10 +10,9 @@ describe("Test for create and move cards in Trello", function() {
 	});
 
     after(function() {
-        cy.visit('/u/'+this.credentials.userName +'/boards');
         cy.boardDeleteApi(this.credentials.key, this.credentials.token);
         cy.workSpaceDeleteApi(this.credentials.key, this.credentials.token);
-        cy.logout();
+        cy.logout(this.credentials.userName);
     });
 
     describe("Manage of Cards", function () {

@@ -11,10 +11,9 @@ describe("Test for  attachment a link in a card of Trello", function() {
 
     after(function() {
         //Deleting workspace, board with API and logout.
-        cy.visit('/u/'+this.credentials.userName +'/boards');
         cy.boardDeleteApi(this.credentials.key, this.credentials.token);
         cy.workSpaceDeleteApi(this.credentials.key, this.credentials.token);
-        cy.logout();
+        cy.logout(this.credentials.userName);
     });
 
     describe("Attach link in a card", function () {

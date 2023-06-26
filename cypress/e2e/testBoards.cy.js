@@ -11,7 +11,7 @@ describe("Boards", function() {
             const workSpaceName= data;
             cy.deleteWorkSpace(workSpaceName);
         })
-        cy.logout();
+        cy.logout(this.credentials.userName);
 	});
 
     beforeEach(function () {
