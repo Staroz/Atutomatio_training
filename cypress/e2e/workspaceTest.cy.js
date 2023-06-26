@@ -10,8 +10,7 @@ describe("Manipulating Workspaces in Trello", function() {
 	});
 
     after(function() {
-        cy.visit('/u/'+this.credentials.userName +'/boards');
-        cy.logout();
+        cy.logout(this.credentials.userName);
     });
 
     describe("Create a workspace whit UI", function () {

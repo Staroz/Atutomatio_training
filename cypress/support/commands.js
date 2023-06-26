@@ -17,7 +17,8 @@ Cypress.Commands.add('login', (email, pw, userName) => {
     });
 }); 
 
-Cypress.Commands.add('logout', ()=> {
+Cypress.Commands.add('logout', (userName)=> {
+    cy.visit(`/u/" + ${userName} + "/boards`);
     cy.get('[data-testid="header-member-menu-button"]').click();
     cy.wait(2000);
     cy.get('[data-testid="account-menu-logout"]').click();
@@ -29,7 +30,7 @@ Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
     cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
     cy.get('[data-testid="header-create-team-button"]').click();
     cy.get('[data-testid="header-create-team-name-input"]').type(workSpaceName)
-    cy.get('div [class=" css-1og2rpm"]').click(); 
+    cy.get('[class="t3Ou6F9HZxP3VK css-ufz0vj-control"]').click(); 
     cy.contains('Education').click({force: true});
     cy.wait(1500);
     cy.get('[data-testid="header-create-team-submit-button"]').click();
