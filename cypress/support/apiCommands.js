@@ -14,14 +14,21 @@ async function deleteWorkspaces() {
 
     for (const organization of organizations) {
 
-      // await axios.delete(
-      //   `https://api.trello.com/1/boards/${organization.idBoards}?&key=${apiKey}&token=${apiToken}`
-      // );
-      await axios.delete(
-        `https://api.trello.com/1/organizations/${organization.id}?key=${apiKey}&token=${apiToken}`
+      if (organization.idBoards === String) {
+        await axios.delete(
+          `https://api.trello.com/1/boards/${organization.idBoards}?&key=${apiKey}&token=${apiToken}`
+        );
+        await axios.delete(
+          `https://api.trello.com/1/organizations/${organization.id}?key=${apiKey}&token=${apiToken}`
+          
+        );
+      } else {
+        await axios.delete(
+          `https://api.trello.com/1/organizations/${organization.id}?key=${apiKey}&token=${apiToken}`
+          
+        );
         
-      );
-
+      }
       console.log(`This workspace was deleted: ${organization.displayName}`);
     }
 

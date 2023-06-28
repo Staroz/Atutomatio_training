@@ -43,7 +43,6 @@ exports.BoardsApi = class BoardsApi {
         response = await axios.post(`https://api.trello.com/1/lists?name=${listNameArray[index]}&idBoard=${boardId}&key=${key}&token=${token}`);
         listId = response.data.id;
         }
-        console.log('BODY LIST API', response);
         return response;
     };
     // Create Cards with API

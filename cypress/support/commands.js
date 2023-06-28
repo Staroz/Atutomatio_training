@@ -150,6 +150,17 @@ Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
     cy.get('[class="js-add-attachment-url"]').click();
 });
 
+Cypress.Commands.add('copyCard', (cardName, copyCardName, boardName, listName, cardPosition) => { 
+    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
+    cy.get('[class="js-sidebar-action-text"]').contains('Copy').click();
+    cy.get('[class="js-autofocus"]').type(copyCardName, {delay: 20});
+    cy.get('select.js-select-board').select(`${boardName} (current)`);
+    cy.get('select.js-select-list').select(listName);
+    cy.get('select.js-select-position').select(cardPosition);
+    cy.contains('Create card').click({force: true});
+    cy.get('[aria-label="Close dialog"]').click();
+});
+
 //MANAGEMENT WORKSPACES AND BOARD WITH API
 Cypress.Commands.add('boardCreateApi', function(key, token, boardName) {
     cy.request({

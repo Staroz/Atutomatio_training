@@ -44,6 +44,14 @@ exports.CardsUi = class CardsUi {
         this.linkNameInput = page.locator('[id="nameLink"]');
         this.attachConfirmBtn = page.locator('[class="js-add-attachment-url"]');
         this.attachmentList = page.locator('[class="u-clearfix js-attachment-list ui-sortable"]');
+        // Copy a card in another list
+        this.copyCardNameInput = page.locator('[class="js-autofocus"]');
+        this.targetBoard = page.locator('select.js-select-board');
+        this.targetList = page.locator('select.js-select-list');
+        this.targetPosition = page.locator('select.js-select-position');
+        this.confirmCopyCardBtn = page.getByText('Create card');
+        this.cardWindowCloseBtn = page.locator('[aria-label="Close dialog"]');
+
     }
 
 	async createCards(boardName, listName, cardsNameArray) {
@@ -77,11 +85,9 @@ exports.CardsUi = class CardsUi {
         const descriptionInput = await this.page.isVisible('[data-testid="placeholder-test-id"]');
         
             if (descriptionInput) {
-                console.log('YES', descriptionInput);
                 await this.descriptionTextInput.fill(descriptionText);
                 await this.descriptionTextSaveBtn.click();
             } else {
-                console.log('NO');
                 await this.shadowTextBtn.click();
                 await this.descriptionTextInput.fill(descriptionText);
                 await this.descriptionTextSaveBtn.click();
@@ -120,6 +126,17 @@ exports.CardsUi = class CardsUi {
         await this.linkInput.fill(attachmentLink);
         await this.linkNameInput.fill(linkName);
         await this.attachConfirmBtn.click({force: true});
+    };
+
+    async copyCard(cardName, copyCardName, boardName, listName, cardPosition) {
+        await this.cardSelector.getByText(cardName).click();
+        await this.addPropertiesBtn.getByText('Copy').click();
+        await this.copyCardNameInput.fill(copyCardName);
+        await this.targetBoard.selectOption({label: `${boardName} (current)`});
+        await this.targetList.selectOption({label: listName});
+        await this.targetPosition.selectOption({label: cardPosition});
+        await this.confirmCopyCardBtn.click({force: true});
+        await this.cardWindowCloseBtn.click();
     };
 }
 
