@@ -9,4 +9,5 @@ playwright-report/
 cypress/screenshots/
 cypress/videos/
 tests-examples/
+cypress/fixtures/credentials1.json
 

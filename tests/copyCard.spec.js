@@ -6,7 +6,6 @@ const { WorkspaceApi } = require('./pages/workspaceApi');
 const { BoardsApi } = require('./pages/boardsApi');
 const { CardsUi } = require('./pages/cardsUi')
 
-
 test.describe('Copy a cards in another list', async () => { 
     let browser, context, page, boardsApi, workspaceApi, cardsUi;
 
@@ -50,7 +49,6 @@ test.describe('Copy a cards in another list', async () => {
             await cardsUi.enterBoardBtn.getByText(credentials.boardName).first().click();
             await cardsUi.copyCard(credentials.cardsNameArray[0], credentials.copiedCardInfo.copyCardName, credentials.boardName, credentials.listNameArray[1], credentials.copiedCardInfo.positionOfCard);
             await expect(cardsUi.listBlockLocator.filter({hasText: credentials.listNameArray[1]})).toContainText(credentials.copiedCardInfo.copyCardName);
-            
         });
 
         test.afterAll(async () => {

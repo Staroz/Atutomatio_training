@@ -49,8 +49,8 @@ exports.CardsUi = class CardsUi {
         this.targetBoard = page.locator('select.js-select-board');
         this.targetList = page.locator('select.js-select-list');
         this.targetPosition = page.locator('select.js-select-position');
-        this.confirmCopyCardBtn = page.locator('[class="nch-button nch-button--primary wide js-submit"]');
-        this.cardWindowCloseBtn = page.locator('[class="icon-md icon-close dialog-close-button js-close-window"]');
+        this.confirmCopyCardBtn = page.getByText('Create card');
+        this.cardWindowCloseBtn = page.locator('[aria-label="Close dialog"]');
 
     }
 
@@ -85,11 +85,9 @@ exports.CardsUi = class CardsUi {
         const descriptionInput = await this.page.isVisible('[data-testid="placeholder-test-id"]');
         
             if (descriptionInput) {
-                console.log('YES', descriptionInput);
                 await this.descriptionTextInput.fill(descriptionText);
                 await this.descriptionTextSaveBtn.click();
             } else {
-                console.log('NO');
                 await this.shadowTextBtn.click();
                 await this.descriptionTextInput.fill(descriptionText);
                 await this.descriptionTextSaveBtn.click();
@@ -134,7 +132,7 @@ exports.CardsUi = class CardsUi {
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Copy').click();
         await this.copyCardNameInput.fill(copyCardName);
-        await this.targetBoard.selectOption({label: boardName+' (current)' });
+        await this.targetBoard.selectOption({label: `${boardName} (current)`});
         await this.targetList.selectOption({label: listName});
         await this.targetPosition.selectOption({label: cardPosition});
         await this.confirmCopyCardBtn.click({force: true});
