@@ -10,19 +10,20 @@ exports.ListsUi = class ListsUi {
 		this.page = page;
 		this.loadPageOfBoards = page.goto(`u/${credentials.userName}/boards`);
         this.enterBoardBtn = page.locator('[class="board-tile-details-name"]');
-        this.locatorList = page.locator('[class="list-header-name-assist js-list-name-assist"]');
+        this.locatorList = page.locator('[class="list js-list-content"]');
+		this.listBlockLocator = page.locator('#board');
 		// create a lists
 		this.addListBtn = page.locator('[class="placeholder"]');
         this.nameListInput = page.locator('[class="list-name-input"]');
 		this.cancelEditListBtn = page.locator('[class="icon-lg icon-close dark-hover js-cancel-edit"]');
-
 		// Delete a list
-		this.optionsListBtn = page.locator('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]');
+		this.optionsListBtn = page.locator('[aria-label="List actions"]');
 		this.archiveListBtn = page.locator('[class="js-close-list"]');
+		
 	}
 
 	async createLists(boardName, listNameArray) {
-        await this.enterBoardBtn.first().getByText(boardName).click();
+        await this.enterBoardBtn.getByText(boardName).first().click();
         await this.addListBtn.click();
 		for (let index = 0; index < listNameArray.length; index++) {
             await this.nameListInput.fill(listNameArray[index]);
@@ -39,5 +40,11 @@ exports.ListsUi = class ListsUi {
                 await this.optionsListBtn.first().click();
                 await this.archiveListBtn.click();
             };
+	};
+
+	async archivedList(boardName, listName) {
+        await this.enterBoardBtn.getByText(boardName).first().click();
+        await this.locatorList.filter({has: this.page.getByText(listName)}).getByRole('link', {name: "List actions"}).click();
+        await this.archiveListBtn.click();
 	};
 };

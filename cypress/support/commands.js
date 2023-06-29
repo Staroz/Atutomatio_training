@@ -79,12 +79,18 @@ Cypress.Commands.add('createLists', (boardName, listNameArray) => {
 
 Cypress.Commands.add('deleteLists', (boardName) => {
     cy.get('[class="board-tile-details-name"]').contains(boardName).click();
-    cy.get('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]').then(($values) => {
+    cy.get('[aria-label="List actions"]').then(($values) => {
         for (let index = $values.length; index > 0; index--) {
-            cy.get('[class="list-header-extras-menu js-open-list-menu icon-sm icon-overflow-menu-horizontal"]').first().click();
+            cy.get('[aria-label="List actions"]').first().click();
             cy.get('[class="js-close-list"]').click();
         }
     });
+});
+
+Cypress.Commands.add('archiveList', (boardName, listName) => {
+    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.contains('[class="list js-list-content"]', listName).find('[aria-label="List actions"]').click();
+    cy.get('[class="js-close-list"]').click();
 });
 
 // CARDS HANDLING WITH UI.

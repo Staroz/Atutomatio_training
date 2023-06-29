@@ -58,7 +58,7 @@ test.describe('Testing cards in Trello', async () => {
             await cardsUi.enterBoardBtn.getByText(credentials.boardName).first().click();
             await cardsUi.moveCard(credentials.cardsNameArray[0], credentials.listNameArray[1],);
             await cardsUi.moveCard(credentials.cardsNameArray[0], credentials.listNameArray[2],);
-            await expect(cardsUi.listBlockLocator.filter({hasText: credentials.listNameArray[2]})).toContainText(credentials.cardsNameArray[0]);
+            await expect(cardsUi.locatorList.filter({hasText: credentials.listNameArray[2]})).toContainText(credentials.cardsNameArray[0]);
             await cardsUi.moveCard(credentials.cardsNameArray[1], credentials.listNameArray[1],);
             await expect(cardsUi.listBlockLocator.filter({hasText: credentials.listNameArray[1]})).toContainText(credentials.cardsNameArray[1]);
         });

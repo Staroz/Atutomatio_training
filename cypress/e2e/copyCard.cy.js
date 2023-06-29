@@ -9,13 +9,13 @@ describe("Copy a cards in another list", function() {
         cy.login(this.credentials.email, this.credentials.pw, this.credentials.userName);
 	});
 
-    after(function() {
-        //Deleting workspace, board with API and logout.
-        cy.visit('/u/'+this.credentials.userName +'/boards');
-        cy.boardDeleteApi(this.credentials.key, this.credentials.token);
-        cy.workSpaceDeleteApi(this.credentials.key, this.credentials.token);
-        cy.logout(this.credentials.userName);
-    });
+    // after(function() {
+    //     //Deleting workspace, board with API and logout.
+    //     cy.visit('/u/'+this.credentials.userName +'/boards');
+    //     cy.boardDeleteApi(this.credentials.key, this.credentials.token);
+    //     cy.workSpaceDeleteApi(this.credentials.key, this.credentials.token);
+    //     cy.logout(this.credentials.userName);
+    // });
 
     describe("Copy a card", function () {
         before(function() {
