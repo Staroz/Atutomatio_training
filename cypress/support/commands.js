@@ -19,7 +19,7 @@ Cypress.Commands.add('login', (email, pw, userName) => {
 
 Cypress.Commands.add('logout', (userName)=> {
     cy.visit(`/u/" + ${userName} + "/boards`);
-    cy.get('[data-testid="header-member-menu-button"]').click();
+    cy.get('[data-testid="header-member-menu-button"]').click({force: true});
     cy.wait(2000);
     cy.get('[data-testid="account-menu-logout"]').click();
 });
@@ -49,7 +49,7 @@ Cypress.Commands.add('createBoard', (boardName)=>{
     cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
     cy.get('[data-testid="header-create-board-button"]').click();
     cy.get('[data-testid="create-board-title-input"]').type(boardName);
-    cy.get('[data-testid="create-board-submit-button"]').click();
+    cy.get('[data-testid="create-board-submit-button"]').click({force: true});
 });
 
 Cypress.Commands.add('modifyBoardName', (boardName, newBoardName)=> {
@@ -131,7 +131,7 @@ Cypress.Commands.add('addLabels', (cardName, labelColor) => {
 Cypress.Commands.add('addChecklists', (cardName, checklistName) => {
     cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
     cy.get('[class="js-sidebar-action-text"]').contains('Checklist').click();
-    cy.get('[id="id-checklist"]').type(checklistName+'{enter}');
+    cy.get('[id="id-checklist"]').should('be.visible').type(checklistName+'{enter}');
 });
 
 Cypress.Commands.add('addCovers', (cardName, coverImageNumber) => {

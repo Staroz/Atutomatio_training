@@ -18,6 +18,13 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           browser: chrome
+      - name: Uploading artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-execution-report
+          path: cypress/reports/html
+
   test_Playwright:
     needs: test_Cypress
     timeout-minutes: 60
@@ -28,7 +35,7 @@ jobs:
       with:
         node-version: 16
     - name: Install dependencies
-      run: npm install
+      run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install
     - name: Install dep
@@ -37,4 +44,12 @@ jobs:
       run: |
           echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
     - name: Run Playwright tests
-      run: npx playwright test
+      run: |
+          npx playwright test
+          allure generate allure-results -o allure-report --clean
+    - name: Uploading artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: allure-report
+        path: allure-report
