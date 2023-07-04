@@ -131,7 +131,7 @@ Cypress.Commands.add('addLabels', (cardName, labelColor) => {
 Cypress.Commands.add('addChecklists', (cardName, checklistName) => {
     cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
     cy.get('[class="js-sidebar-action-text"]').contains('Checklist').click();
-    cy.get('[id="id-checklist"]').should('be.visible').type(checklistName+'{enter}');
+    cy.get('[id="id-checklist"]').should('be.visible').type(checklistName+'{enter}', {delay: 25});
 });
 
 Cypress.Commands.add('addCovers', (cardName, coverImageNumber) => {
