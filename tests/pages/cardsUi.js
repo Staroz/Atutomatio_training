@@ -9,8 +9,8 @@ exports.CardsUi = class CardsUi {
 		this.page = page;
 		this.loadPageOfBoards = page.goto(`u/${credentials.userName}/boards`);
         this.enterBoardBtn = page.locator('[class="board-tile-details-name"]');
-        this.locatorList = page.locator('[class="list-header-name-assist js-list-name-assist"]');
-        this.listBlockLocator = page.locator('[class="list js-list-content"]');
+        this.locatorList = page.locator('[class="list js-list-content"]');
+        this.listBlockLocator = page.locator('#board');
 		// create cards
 		this.addCardIconBtn = page.locator('[class="js-add-a-card"]');
         this.cardNameInput = page.locator('[class="list-card-composer-textarea js-card-title"]');
@@ -56,7 +56,7 @@ exports.CardsUi = class CardsUi {
 
 	async createCards(boardName, listName, cardsNameArray) {
         await this.enterBoardBtn.first().getByText(boardName).click();
-        await this.listBlockLocator.filter({has: this.page.getByText(listName)})
+        await this.locatorList.filter({has: this.page.getByText(listName)})
                 .getByText('Add a card').click();
 		for (let index = 0; index < cardsNameArray.length; index++) {
             await this.cardNameInput.fill(cardsNameArray[index]);

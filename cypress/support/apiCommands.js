@@ -13,25 +13,22 @@ async function deleteWorkspaces() {
     const organizations = response.data;
 
     for (const organization of organizations) {
-
-      if (organization.idBoards === String) {
+      if (organization.idBoards.length ) {
         await axios.delete(
           `https://api.trello.com/1/boards/${organization.idBoards}?&key=${apiKey}&token=${apiToken}`
         );
         await axios.delete(
           `https://api.trello.com/1/organizations/${organization.id}?key=${apiKey}&token=${apiToken}`
-          
         );
+        console.log(`This workspace and board were deleted: ${organization.displayName} and ${organization.name}`);
       } else {
         await axios.delete(
           `https://api.trello.com/1/organizations/${organization.id}?key=${apiKey}&token=${apiToken}`
-          
         );
-        
+        console.log(`This workspace was deleted: ${organization.displayName}`);
       }
-      console.log(`This workspace was deleted: ${organization.displayName}`);
+      
     }
-
     console.log('All workspaces and boards were deleted');
   } catch (error) {
     console.error('This was the error when deleting the workspaces:', error);
