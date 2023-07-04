@@ -12,7 +12,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npm playwright install-deps chromium
+      run: npm i playwright-chromium
     - name: Install dep
       run: npm install -D @playwright/test
     - name: Install allure-commandline
