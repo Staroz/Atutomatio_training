@@ -19,9 +19,8 @@ Cypress.Commands.add('login', (email, pw, userName) => {
 
 Cypress.Commands.add('logout', (userName)=> {
     cy.visit(`/u/" + ${userName} + "/boards`);
-    cy.get('[data-testid="header-member-menu-button"]').click({force: true});
-    cy.wait(2000);
-    cy.get('[data-testid="account-menu-logout"]').click();
+    cy.get('[data-testid="header-member-menu-button"]').should('be.visible').click();
+    cy.get('[data-testid="account-menu-logout"]').should('be.visible').click();
 });
 
 // HANDLING WORKSPACES AND BOARD WITH UI.
@@ -31,7 +30,7 @@ Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
     cy.get('[data-testid="header-create-team-button"]').click();
     cy.get('[data-testid="header-create-team-name-input"]').should('be.visible').type(workSpaceName)
     cy.get('[class="t3Ou6F9HZxP3VK css-ufz0vj-control"]').click(); 
-    cy.contains('Education').click({force: true});
+    cy.contains('Education').click({force: true}); 
     cy.get('[data-testid="header-create-team-submit-button"]').should('be.visible').click();
     cy.get('[data-testid="show-later-button"]').click(); 
 });
@@ -48,7 +47,7 @@ Cypress.Commands.add('createBoard', (boardName)=>{
     cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
     cy.get('[data-testid="header-create-board-button"]').click();
     cy.get('[data-testid="create-board-title-input"]').type(boardName);
-    cy.get('[data-testid="create-board-submit-button"]').click({force: true});
+    cy.get('button[data-testid="create-board-submit-button"]').should('be.visible').click({force: true});
 });
 
 Cypress.Commands.add('modifyBoardName', (boardName, newBoardName)=> {
@@ -130,7 +129,8 @@ Cypress.Commands.add('addLabels', (cardName, labelColor) => {
 Cypress.Commands.add('addChecklists', (cardName, checklistName) => {
     cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
     cy.get('[class="js-sidebar-action-text"]').contains('Checklist').click();
-    cy.get('[id="id-checklist"]').should('be.visible').type(checklistName+'{enter}', {delay: 25});
+    cy.get('[id="id-checklist"]').invoke('val', checklistName);
+    cy.get('input[value="Add"]').click();
 });
 
 Cypress.Commands.add('addCovers', (cardName, coverImageNumber) => {
