@@ -12,12 +12,16 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install
+      run: npm playwright install-deps chromium
     - name: Install dep
       run: npm install -D @playwright/test
+    - name: Install allure-commandline
+      run: npm install -g allure-commandline --save-dev
     - name: Recover the secret
       run: |
           echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
+    - name: Cleaning Trello boards
+      run: node cypress/support/apiCommands.js
     - name: Run Playwright tests
       run: npx playwright test
     - name: Generate Allure report
