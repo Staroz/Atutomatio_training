@@ -29,11 +29,10 @@ Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
     // I did triple-click for a bug in this button, the "force:true" method does not work.
     cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
     cy.get('[data-testid="header-create-team-button"]').click();
-    cy.get('[data-testid="header-create-team-name-input"]').type(workSpaceName)
+    cy.get('[data-testid="header-create-team-name-input"]').should('be.visible').type(workSpaceName)
     cy.get('[class="t3Ou6F9HZxP3VK css-ufz0vj-control"]').click(); 
     cy.contains('Education').click({force: true});
-    cy.wait(1500);
-    cy.get('[data-testid="header-create-team-submit-button"]').click();
+    cy.get('[data-testid="header-create-team-submit-button"]').should('be.visible').click();
     cy.get('[data-testid="show-later-button"]').click(); 
 });
 
