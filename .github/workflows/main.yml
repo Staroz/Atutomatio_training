@@ -1,33 +1,8 @@
 name: Board Test
 on: push
 jobs:
-  test_Cypress:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Recover the secret
-        run: |
-            echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Tests 2
-        run: |
-          cat cypress/fixtures/credentials1.json
-      - name: Cypress run
-        uses: cypress-io/github-action@v5
-        with:
-          browser: chrome
-      - name: Uploading artifacts
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: cypress-execution-report
-          path: cypress/reports/html
-
-  test_Playwright:
-    needs: test_Cypress
-    timeout-minutes: 60
+  Playwright_Test:
+    name: Run end-to-end tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -44,9 +19,9 @@ jobs:
       run: |
           echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
     - name: Run Playwright tests
-      run: |
-          npx playwright test
-          allure generate allure-results -o allure-report --clean
+      run: npx playwright test
+    - name: Generate Allure report
+      run: npx allure generate allure-results --clean -o allure-report
     - name: Uploading artifacts
       uses: actions/upload-artifact@v3
       if: always()
