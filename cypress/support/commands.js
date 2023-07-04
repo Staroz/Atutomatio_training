@@ -19,7 +19,7 @@ Cypress.Commands.add('login', (email, pw, userName) => {
 
 Cypress.Commands.add('logout', (userName)=> {
     cy.visit(`/u/" + ${userName} + "/boards`);
-    cy.get('[data-testid="header-member-menu-button"]').should('be.visible').click();
+    cy.get('[data-testid="header-member-menu-button"]').should('be.visible').click({force: true});
     cy.get('[data-testid="account-menu-logout"]').should('be.visible').click();
 });
 
@@ -29,8 +29,8 @@ Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
     cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
     cy.get('[data-testid="header-create-team-button"]').click();
     cy.get('[data-testid="header-create-team-name-input"]').should('be.visible').type(workSpaceName)
-    cy.get('[class="t3Ou6F9HZxP3VK css-ufz0vj-control"]').click(); 
-    cy.contains('Education').click({force: true}); 
+    cy.get('[class=" css-191o3mb"]').click(); 
+    cy.contains('Education').should('be.visible').click({force: true}); 
     cy.get('[data-testid="header-create-team-submit-button"]').should('be.visible').click();
     cy.get('[data-testid="show-later-button"]').click(); 
 });
