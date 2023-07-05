@@ -33,7 +33,7 @@ test.describe('Testing workspaces in Trello', async () => {
     test.describe('Create a workspace', async () => {
         test('Create', async () => {
         await workspaceUi.createWorkspace(credentials.workSpaceName);
-        await expect(workspaceUi.selectWorkspaceBtn).toContainText([credentials.workSpaceName]);
+        await expect(workspaceUi.selectWorkspaceBtn).toContainText('asdre');
         });
 
         test.afterEach(async () => {
