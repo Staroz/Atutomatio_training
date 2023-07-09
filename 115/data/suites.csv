@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sun Jul 09 06:49:58 GMT 2023","Sun Jul 09 06:50:15 GMT 2023","16839","chromium","","Copy a cards in another list > Copy a card","","","Copy Card 01 to In Progress list",""
+"passed","Sun Jul 09 06:50:15 GMT 2023","Sun Jul 09 06:50:25 GMT 2023","9454","chromium","","Testing workspaces in Trello > Create a workspace","","","Create",""
+"passed","Sun Jul 09 06:50:25 GMT 2023","Sun Jul 09 06:50:29 GMT 2023","4510","chromium","","Testing workspaces in Trello > Dele a workspace","","","Delete",""
