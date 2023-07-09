@@ -40,7 +40,7 @@ describe("Test for update information of cards in Trello", function() {
             cy.addLabels(this.credentials.cardsNameArray[0], this.credentials.labelColor.green);
             cy.get('[data-testid="card-label"]').should('have.attr', 'data-color', this.credentials.labelColor.green);
         });
-        it.only("add Checklist", function () {
+        it("add Checklist", function () {
             cy.joinBoard(this.credentials.userName, this.credentials.boardName);
             cy.addChecklists(this.credentials.cardsNameArray[0], this.credentials.checklistName);
             cy.get('[class="checklist"]').should('contain.text', this.credentials.checklistName)
