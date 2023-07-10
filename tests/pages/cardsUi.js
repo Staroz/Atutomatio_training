@@ -124,6 +124,7 @@ exports.CardsUi = class CardsUi {
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Attachment').click();
         await this.linkInput.fill(attachmentLink);
+        await this.linkNameInput.waitFor('visible');
         await this.linkNameInput.fill(linkName);
         await this.attachConfirmBtn.click({force: true});
     };

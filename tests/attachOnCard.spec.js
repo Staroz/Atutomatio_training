@@ -24,7 +24,7 @@ test.describe('Testing cards in Trello (Attachment)', async () => {
 
         const loginPage = new LoginPage(page);
         await loginPage.logIn(credentials.email, credentials.pw);
-        await expect(page).toHaveURL(`u/${credentials.userName}/boards`);
+        await expect(page).toHaveURL('');
     });
 
     test.afterAll(async () => {

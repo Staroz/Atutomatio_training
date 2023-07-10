@@ -24,7 +24,7 @@ jobs:
         with:
           name: cypress-execution-report
           path: cypress/reports/html
-
+          retention-days: 5
   test_Playwright:
     needs: test_Cypress
     timeout-minutes: 60
@@ -50,6 +50,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@master
+      if: always()
       with:
         name: allure-results
         path: allure-results
