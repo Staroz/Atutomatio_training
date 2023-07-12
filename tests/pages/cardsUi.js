@@ -110,7 +110,7 @@ exports.CardsUi = class CardsUi {
     async addChecklists(cardName, checklistName) {
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Checklist').click();
-        await this.checklistNameInput.type(checklistName);
+        await this.checklistNameInput.fill(checklistName);
         await this.checklistNameInput.press('Enter');
     };
 
