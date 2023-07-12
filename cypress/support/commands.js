@@ -80,8 +80,8 @@ Cypress.Commands.add('deleteLists', (boardName) => {
     cy.get('.board-tile-details-name').contains(boardName).click();
     cy.get('[aria-label="List actions"]').then(($values) => {
         for (let index = $values.length; index > 0; index--) {
-            cy.get('[aria-label="List actions"]').first().click();
-            cy.get('.js-close-list').click();
+                cy.get('[aria-label="List actions"]').first().click();
+                cy.get('.js-close-list').should('be.visible').click();
         }
     });
 });
@@ -151,8 +151,8 @@ Cypress.Commands.add('moveCard', ( cardName, listName) => {
 Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
     cy.get('.list-card-title.js-card-name').contains(cardName).click();
     cy.get('.Sc6pkrxVPpi79Q').click();
-    cy.get('#url-uid1').should('be.visible').type(attachmentLink, {delay: 1})
-    cy.get('#displayText-uid2').type(linkName);
+    cy.get('#url-uid1').should('be.visible').type(attachmentLink, {delay: 0})
+    cy.get('#displayText-uid2').type(linkName, {delay: 0});
     cy.get('.css-178ag6o').contains('Insert').click({force: true});
 });
 
