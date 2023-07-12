@@ -27,7 +27,7 @@ describe("Archive a list of a board, with more than one list", function() {
         it("Archive", function () {
             cy.visit('/u/'+this.credentials.userName +'/boards');
             cy.archiveList(this.credentials.boardName, this.credentials.listNameArray[1]);
-            cy.get('[class="list js-list-content"]').should('not.contain.text' , this.credentials.listNameArray[1]);
+            cy.get('.list.js-list-content').should('not.contain.text' , this.credentials.listNameArray[1]);
         });
     });
 });

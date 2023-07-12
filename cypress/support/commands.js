@@ -1,3 +1,4 @@
+
 import { getWSId, getId } from "./functions";
 require('@4tw/cypress-drag-drop')
 
@@ -19,7 +20,7 @@ Cypress.Commands.add('login', (email, pw, userName) => {
 
 Cypress.Commands.add('logout', (userName)=> {
     cy.visit(`/u/" + ${userName} + "/boards`);
-    cy.get('[data-testid="header-member-menu-button"]').should('be.visible').click({force: true});
+    cy.get('.u4D2jzA4ZiZ43J').should('be.visible').click({ force: true });
     cy.get('[data-testid="account-menu-logout"]').should('be.visible').click();
 });
 
@@ -29,7 +30,7 @@ Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
     cy.get('[data-testid="header-create-menu-button"]').dblclick().click();
     cy.get('[data-testid="header-create-team-button"]').click();
     cy.get('[data-testid="header-create-team-name-input"]').should('be.visible').type(workSpaceName)
-    cy.get('[class=" css-191o3mb"]').click(); 
+    cy.get('.css-191o3mb').click(); 
     cy.contains('Education').should('be.visible').click({force: true}); 
     cy.get('[data-testid="header-create-team-submit-button"]').should('be.visible').click();
     cy.get('[data-testid="show-later-button"]').click(); 
@@ -38,7 +39,7 @@ Cypress.Commands.add('createWorkSpace', (workSpaceName)=> {
 Cypress.Commands.add('deleteWorkSpace', (workSpaceName) => {
     cy.get('[data-testid="home-team-settings-tab"]').click();
     cy.get('[data-testid="delete-workspace-button"]').click();
-    cy.get('[id="confirmWorkspaceName"]').type(workSpaceName);
+    cy.get('#confirmWorkspaceName').type(workSpaceName);
     cy.wait(1500);
     cy.get('[data-testid="delete-workspace-confirm-button"]').click();
 });
@@ -51,114 +52,114 @@ Cypress.Commands.add('createBoard', (boardName)=>{
 });
 
 Cypress.Commands.add('modifyBoardName', (boardName, newBoardName)=> {
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.get('.board-tile-details-name').contains(boardName).first().click();
     cy.get('[data-testid="board-name-display"]').type(newBoardName+'{enter}');
 });
 
 Cypress.Commands.add('boardDelete', (boardName) => {
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
-    cy.get('[class="frrHNIWnTojsww GDunJzzgFqQY_3 bxgKMAm3lq5BpA HAVwIqCeMHpVKh SEj5vUdI3VvxDc"]').click({force: true});
-    cy.get('[class="board-menu-navigation-item-link js-open-more"]').click();
-    cy.get('[class="board-menu-navigation-item-link js-close-board"]').click({force: true});
-    cy.get('[class="js-confirm full nch-button nch-button--danger"]').click(); 
+    cy.get('.board-tile-details-name').contains(boardName).click();
+    cy.get('.frrHNIWnTojsww.GDunJzzgFqQY_3.bxgKMAm3lq5BpA.HAVwIqCeMHpVKh.SEj5vUdI3VvxDc').click({force: true});
+    cy.get('.board-menu-navigation-item-link.js-open-more').click();
+    cy.get('.board-menu-navigation-item-link.js-close-board').click({force: true});
+    cy.get('.js-confirm.full.nch-button.nch-button--danger').click(); 
     cy.get('[data-testid="close-board-delete-board-button"]').click();
     cy.get('[data-testid="close-board-delete-board-confirm-button"]').click();
 });
 
 // LIST HANDLING WITH UI.
 Cypress.Commands.add('createLists', (boardName, listNameArray) => {
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
-    cy.get('[class="placeholder"]').click();
+    cy.get('.board-tile-details-name').contains(boardName).click();
+    cy.get('.placeholder').click();
         for (let index = 0; index < listNameArray.length; index++) {
-            cy.get('[class="list-name-input"]').type(listNameArray[index] +'{enter}');
+            cy.get('.list-name-input').type(listNameArray[index] +'{enter}');
         };
-    cy.get('[class="icon-lg icon-close dark-hover js-cancel-edit"]').click();
+    cy.get('.icon-lg.icon-close.dark-hover.js-cancel-edit').click();
 });
 
 Cypress.Commands.add('deleteLists', (boardName) => {
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.get('.board-tile-details-name').contains(boardName).click();
     cy.get('[aria-label="List actions"]').then(($values) => {
         for (let index = $values.length; index > 0; index--) {
             cy.get('[aria-label="List actions"]').first().click();
-            cy.get('[class="js-close-list"]').click();
+            cy.get('.js-close-list').click();
         }
     });
 });
 
 Cypress.Commands.add('archiveList', (boardName, listName) => {
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
-    cy.contains('[class="list js-list-content"]', listName).find('[aria-label="List actions"]').click();
-    cy.get('[class="js-close-list"]').click();
+    cy.get('.board-tile-details-name').contains(boardName).click();
+    cy.contains('.list.js-list-content', listName).find('[aria-label="List actions"]').click();
+    cy.get('.js-close-list').click();
 });
 
 // CARDS HANDLING WITH UI.
 Cypress.Commands.add('createCards', (boardName, cardsNameArray) => {
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
-    cy.get('[class="js-add-a-card"]').first().click();
+    cy.get('.board-tile-details-name').contains(boardName).click();
+    cy.get('.js-add-a-card').first().click();
         for (let index = 0; index < cardsNameArray.length; index++) {
-            cy.get('[class="list-card-composer-textarea js-card-title"]').type(cardsNameArray[index] +'{enter}');
+            cy.get('.list-card-composer-textarea.js-card-title').type(cardsNameArray[index] +'{enter}');
         };
-    cy.get('[class="icon-lg icon-close dark-hover js-cancel"]').click();
+    cy.get('.icon-lg.icon-close.dark-hover.js-cancel').click();
 });
 
 Cypress.Commands.add('joinBoard', (userName, boardName) => {
     cy.visit(`/u/" + ${userName} + "/boards`);
-    cy.get('[class="board-tile-details-name"]').contains(boardName).click();
+    cy.get('.board-tile-details-name').contains(boardName).click();
 });
 
 Cypress.Commands.add('addDescriptionInCard', (cardName, descriptionText) => {
-    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
+    cy.get('.list-card-title.js-card-name').contains(cardName).click();
     cy.get('[data-testid="click-wrapper"]').click().type(descriptionText);
-    cy.get('[class="confirm js-save-edit bxgKMAm3lq5BpA SdamsUKjxSBwGb SEj5vUdI3VvxDc"]').click();
+    cy.contains('Save').click();
 });
 
 Cypress.Commands.add('addMember', (cardName, userName) => {
-    cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
-    cy.get('[class="js-sidebar-action-text"]').contains('Members').click();
-    cy.get('[class="full-name"]').contains(userName).click();
-    cy.get('[class="pop-over-header-close-btn icon-sm icon-close"]').click();
+    cy.get('.list-card.js-member-droppable.ui-droppable').contains(cardName).click();
+    cy.get('.js-sidebar-action-text').contains('Members').click();
+    cy.get('.full-name').contains(userName).click();
+    cy.get('.pop-over-header-close-btn.icon-sm.icon-close').click();
 });
 
 Cypress.Commands.add('addLabels', (cardName, labelColor) => {
-    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
-    cy.get('[class="js-sidebar-action-text"]').contains('Labels').click();
+    cy.get('.list-card-title.js-card-name').contains(cardName).click();
+    cy.get('.js-sidebar-action-text').contains('Labels').click();
     cy.get(`[data-color="${labelColor}"]`).click();
     cy.get('[data-testid="popover-close"]').click();
 });
 
 Cypress.Commands.add('addChecklists', (cardName, checklistName) => {
-    cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
-    cy.get('[class="js-sidebar-action-text"]').contains('Checklist').click();
-    cy.get('[id="id-checklist"]').invoke('val', checklistName);
+    cy.get('.list-card.js-member-droppable.ui-droppable').contains(cardName).click();
+    cy.get('.js-sidebar-action-text').contains('Checklist').click();
+    cy.get('#id-checklist').invoke('val', checklistName);
     cy.get('input[value="Add"]').click();
 });
 
 Cypress.Commands.add('addCovers', (cardName, coverImageNumber) => {
-    cy.get('[class="list-card js-member-droppable ui-droppable"]').contains(cardName).click();
-    cy.get('[class="js-sidebar-action-text"]').contains('Cover').click();
+    cy.get('.list-card.js-member-droppable.ui-droppable').contains(cardName).click();
+    cy.get('.js-sidebar-action-text').contains('Cover').click();
     cy.wait(2000);
-    cy.get('[class="k5qq0MRUdPmpWq"]').eq(coverImageNumber).click();
-    cy.get('[class="pop-over-header-close-btn icon-sm icon-close"]').click()
+    cy.get('.k5qq0MRUdPmpWq').eq(coverImageNumber).click();
+    cy.get('.pop-over-header-close-btn.icon-sm.icon-close').click()
 });
 
 Cypress.Commands.add('moveCard', ( cardName, listName) => {
-    cy.get('[class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable"]')
-        .contains('[class="list js-list-content"]', listName).as('element');
-    cy.get('[class="list-card-details js-card-details"]').contains(cardName).drag('@element');
+    cy.get('.u-fancy-scrollbar.js-no-higher-edits.js-list-sortable.ui-sortable')
+        .contains('.list.js-list-content', listName).as('element');
+    cy.get('.list-card-details.js-card-details').contains(cardName).drag('@element');
 });
 
 Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
-    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
-    cy.get('[class="js-sidebar-action-text"]').contains('Attachment').click();
-    cy.get('[id="addLink"]').invoke('val', attachmentLink);
-    cy.get('[id="nameLink"]').invoke('val', linkName);
-    cy.get('[class="js-add-attachment-url"]').click();
+    cy.get('.list-card-title.js-card-name').contains(cardName).click();
+    cy.get('.Sc6pkrxVPpi79Q').click();
+    cy.get('#url-uid1').should('be.visible').type(attachmentLink, {delay: 1})
+    cy.get('#displayText-uid2').type(linkName);
+    cy.get('.css-178ag6o').contains('Insert').click({force: true});
 });
 
 Cypress.Commands.add('copyCard', (cardName, copyCardName, boardName, listName, cardPosition) => { 
-    cy.get('[class="list-card-title js-card-name"]').contains(cardName).click();
-    cy.get('[class="js-sidebar-action-text"]').contains('Copy').click();
-    cy.get('[class="js-autofocus"]').type(copyCardName, {delay: 20});
+    cy.get('.list-card-title.js-card-name').contains(cardName).click();
+    cy.get('.js-sidebar-action-text').contains('Copy').click();
+    cy.get('textarea.js-autofocus').type(copyCardName, {delay: 20});
     cy.get('select.js-select-board').select(`${boardName} (current)`);
     cy.get('select.js-select-list').select(listName);
     cy.get('select.js-select-position').select(cardPosition);

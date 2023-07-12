@@ -9,16 +9,16 @@ exports.ListsUi = class ListsUi {
 		// general locators  
 		this.page = page;
 		this.loadPageOfBoards = page.goto(`u/${credentials.userName}/boards`);
-        this.enterBoardBtn = page.locator('[class="board-tile-details-name"]');
-        this.locatorList = page.locator('[class="list js-list-content"]');
+        this.enterBoardBtn = page.locator('.board-tile-details-name');
+        this.locatorList = page.locator('.list.js-list-content');
 		this.listBlockLocator = page.locator('#board');
 		// create a lists
-		this.addListBtn = page.locator('[class="placeholder"]');
-        this.nameListInput = page.locator('[class="list-name-input"]');
-		this.cancelEditListBtn = page.locator('[class="icon-lg icon-close dark-hover js-cancel-edit"]');
+		this.addListBtn = page.locator('.placeholder');
+        this.nameListInput = page.locator('.list-name-input');
+		this.cancelEditListBtn = page.locator('.icon-lg.icon-close.dark-hover.js-cancel-edit');
 		// Delete a list
 		this.optionsListBtn = page.locator('[aria-label="List actions"]');
-		this.archiveListBtn = page.locator('[class="js-close-list"]');
+		this.archiveListBtn = page.locator('.js-close-list');
 		
 	}
 
