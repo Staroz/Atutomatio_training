@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sat Jul 15 08:02:41 GMT 2023","Sat Jul 15 08:02:52 GMT 2023","11503","chromium","","Copy a cards in another list > Copy a card","","","Copy Card 01 to In Progress list",""
+"passed","Sat Jul 15 08:02:26 GMT 2023","Sat Jul 15 08:02:41 GMT 2023","14930","chromium","","Testing cards in Trello (Attachment) > Add attachment in a card","","","Attach a link in a card",""
+"passed","Sat Jul 15 08:02:15 GMT 2023","Sat Jul 15 08:02:26 GMT 2023","10773","chromium","","Archive a list of a board with more than one list > Archive a list","","","Archive ""In Progress"" list",""
