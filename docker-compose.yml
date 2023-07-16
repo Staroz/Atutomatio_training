@@ -5,9 +5,6 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
-    depends_on:
-      cypress:
-        condition: service_completed_successfully
     command: ["bash", "-c", "npm install && npx playwright test"]
 
   cypress:
@@ -15,4 +12,7 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
+    depends_on:
+      playwright:
+        condition: service_completed_successfully
     command: ["bash", "npm install && npx cypress run --config-file cypress.config.js"]
