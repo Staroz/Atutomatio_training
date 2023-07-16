@@ -13,7 +13,7 @@ exports.WorkspaceUi = class WorkspaceUi {
 		this.createBtn = page.locator('[data-testid="header-create-menu-button"]');
 		this.createWorkspaceBtn = page.locator('[data-testid="header-create-team-button"]');
 		this.workspaceNameInput = page.locator('[data-testid="header-create-team-name-input"]');
-		this.selectWorkspaceType = page.locator('[class=" css-1og2rpm"]');
+		this.selectWorkspaceType = page.locator('.css-1og2rpm');
         this.selectWorkspaceTypeEducation = page.getByTestId('header-create-team-type-input-education');
         this.continueCreateWorkspaceBtn = page.locator('[data-testid="header-create-team-submit-button"]');
         this.doInvitationLaterBtn = page.locator('[data-testid="show-later-button"]');
@@ -21,7 +21,7 @@ exports.WorkspaceUi = class WorkspaceUi {
 		this.selectWorkspaceBtn = page.locator('[data-testid="home-team-tab-name"]');
 		this.settingsWorkspaceBtn = page.locator('[data-testid="home-team-settings-tab"]');
 		this.deleteWorkspaceBtn = page.locator('[data-testid="delete-workspace-button"]');
-		this.fillWorkspaceNameInput = page.locator('[id="confirmWorkspaceName"]');
+		this.fillWorkspaceNameInput = page.locator('#confirmWorkspaceName');
         this.confirmDeleteWorkspaceBtn = page.locator('[data-testid="delete-workspace-confirm-button"]');
 	}
 

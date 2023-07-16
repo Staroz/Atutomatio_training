@@ -27,7 +27,7 @@ describe("Test for  attachment a link in a card of Trello", function() {
         it("Attach", function () {
             cy.joinBoard(this.credentials.userName, this.credentials.boardName);
             cy.addAttachment(this.credentials.cardsNameArray[0], this.credentials.attachmentInfo.link, this.credentials.attachmentInfo.linkName );
-            cy.get('[class="u-clearfix js-attachment-list ui-sortable"]').should('contain.text', this.credentials.attachmentInfo.linkName);
+            cy.get('.attachment-thumbnail-name').should('contain.text', this.credentials.attachmentInfo.linkName);
         });
     });
 });

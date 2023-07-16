@@ -16,14 +16,14 @@ exports.BoardsUi = class BoardsUi {
 		this.boardNameInput = page.getByTestId('create-board-title-input');
 		this.createNewBoardBtn = page.getByTestId('create-board-submit-button');
 		// update name of Board
-		this.selectBoard = page.locator('[class="board-tile-details is-badged"]');
+		this.selectBoard = page.locator('.board-tile-details.is-badged');
 		this.currentBoardName = page.locator('[data-testid="board-name-display"]');
 		this.updateBoardNameInput = page.locator('[data-testid="board-name-input"]');
 		// delete a board
-		this.menuIconBtn = page.locator('[class="frrHNIWnTojsww GDunJzzgFqQY_3 bxgKMAm3lq5BpA HAVwIqCeMHpVKh SEj5vUdI3VvxDc"]');
-		this.menuMoreOptionsBtn = page.locator('[class="board-menu-navigation-item-link js-open-more"]');
-		this.menuCloseBoardBtn = page.locator('[class="board-menu-navigation-item-link js-close-board"]');   
-		this.boardCloseAlertBtn = page.locator('[class="js-confirm full nch-button nch-button--danger"]');   
+		this.menuIconBtn = page.locator('.frrHNIWnTojsww.GDunJzzgFqQY_3.bxgKMAm3lq5BpA.HAVwIqCeMHpVKh.SEj5vUdI3VvxDc');
+		this.menuMoreOptionsBtn = page.locator('.board-menu-navigation-item-link.js-open-more');
+		this.menuCloseBoardBtn = page.locator('.board-menu-navigation-item-link.js-close-board');   
+		this.boardCloseAlertBtn = page.locator('.js-confirm.full.nch-button.nch-button--danger');   
 		this.permanentlyDeleteBoardBtn= page.locator('[data-testid="close-board-delete-board-button"]'); 
 		this.confirmDeleteBoardBtn= page.locator('[data-testid="close-board-delete-board-confirm-button"]'); 
 	}
@@ -36,14 +36,14 @@ exports.BoardsUi = class BoardsUi {
 	};
 
 	async updateBoardName(boardName, newBoardName) {
-		await this.page.getByText(boardName).click();
+		await this.page.getByText(boardName).first().click();
 		await this.currentBoardName.click();
 		await this.updateBoardNameInput.fill(newBoardName);
 		await this.updateBoardNameInput.press('Enter');
 	};
 	
 	async deleteBoard(boardName) {
-		await this.page.getByText(boardName).click();
+		await this.page.getByText(boardName).first().click();
 		await this.menuIconBtn.click({force: true});
 		await this.menuMoreOptionsBtn.click();
 		await this.menuCloseBoardBtn.click({force: true});

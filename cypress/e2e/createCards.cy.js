@@ -36,15 +36,15 @@ describe("Test for create and move cards in Trello", function() {
             cy.visit(`/u/" + ${this.credentials.userName} + "/boards`);
             cy.joinBoard(this.credentials.userName, this.credentials.boardName);
             cy.moveCard(this.credentials.cardsNameArray[0], this.credentials.listNameArray[1]);
-            cy.get('[class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable"]')
+            cy.get('#board')
                 .contains('[class="list js-list-content"]', this.credentials.listNameArray[1])
                 .children().should('contain.text', this.credentials.cardsNameArray[0]);
             cy.moveCard(this.credentials.cardsNameArray[0], this.credentials.listNameArray[2]);
-            cy.get('[class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable"]')
+            cy.get('#board')
                 .contains('[class="list js-list-content"]', this.credentials.listNameArray[2])
                 .children().should('contain.text', this.credentials.cardsNameArray[0]);
             cy.moveCard(this.credentials.cardsNameArray[1], this.credentials.listNameArray[1]);
-            cy.get('[class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable"]')
+            cy.get('#board')
                 .contains('[class="list js-list-content"]', this.credentials.listNameArray[1])
                 .children().should('contain.text', this.credentials.cardsNameArray[1]);
         });

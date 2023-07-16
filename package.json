@@ -3,8 +3,11 @@
     "@4tw/cypress-drag-drop": "^2.2.4",
     "@badeball/cypress-cucumber-preprocessor": "^17.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
-    "@playwright/test": "^1.35.1",
-    "cypress": "^12.10.0"
+    "@playwright/test": "^1.36.0",
+    "allure-commandline": "^2.23.0",
+    "allure-playwright": "^2.4.0",
+    "cypress": "^12.16.0",
+    "cypress-mochawesome-reporter": "^3.5.1"
   },
   "scripts": {
     "test:ui": "cypress open",

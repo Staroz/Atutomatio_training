@@ -18,6 +18,13 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           browser: chrome
+      - name: Uploading artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-execution-report
+          path: cypress/reports/html
+          retention-days: 5
   test_Playwright:
     needs: test_Cypress
     timeout-minutes: 60
@@ -28,13 +35,42 @@ jobs:
       with:
         node-version: 16
     - name: Install dependencies
-      run: npm install
+      run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install
+      run: npx playwright install --with-deps
     - name: Install dep
       run: npm install -D @playwright/test
+    - name: Install allure-commandline
+      run: npm install -g allure-commandline --save-dev
     - name: Recover the secret
       run: |
           echo '${{ secrets.CREDENTIALS_E2E }}' > cypress/fixtures/credentials1.json
+    - name: Cleaning Trello boards
+      run: node cypress/support/apiCommands.js
     - name: Run Playwright tests
       run: npx playwright test
+    - uses: actions/upload-artifact@master
+      if: always()
+      with:
+        name: allure-results
+        path: allure-results
+    - uses: actions/checkout@v2
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+    - uses: simple-elf/allure-report-action@master
+      if: always()
+      id: allure-report
+      with:
+        allure_results: allure-results
+        gh_pages: gh-pages
+        allure_report: allure-report
+        allure_history: allure-history
+    - uses: peaceiris/actions-gh-pages@v2
+      if: always()
+      env:
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: allure-history

@@ -11,12 +11,14 @@ async function deleteWorkspaces() {
     );
 
     const organizations = response.data;
-
     for (const organization of organizations) {
-      if (organization.idBoards.length ) {
-        await axios.delete(
-          `https://api.trello.com/1/boards/${organization.idBoards}?&key=${apiKey}&token=${apiToken}`
-        );
+      if (organization.idBoards.length > 0) {
+        for (let index = 0; index < organization.idBoards.length; index++) {
+          await axios.delete(
+            `https://api.trello.com/1/boards/${organization.idBoards[index]}?&key=${apiKey}&token=${apiToken}`
+          );
+          
+        }
         await axios.delete(
           `https://api.trello.com/1/organizations/${organization.id}?key=${apiKey}&token=${apiToken}`
         );
@@ -36,4 +38,3 @@ async function deleteWorkspaces() {
 }
 
 deleteWorkspaces();
-

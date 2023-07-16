@@ -30,7 +30,7 @@ describe("Create lists in a board of Trello", function() {
         after(function () {
             cy.visit(`/u/" + ${this.credentials.userName} + "/boards`);
             cy.deleteLists(this.credentials.boardName);
-            cy.get('[class="placeholder"]').should('have.text', 'Add a list');
+            cy.get('.placeholder').should('have.text', 'Add a list');
         });
 	});
 });

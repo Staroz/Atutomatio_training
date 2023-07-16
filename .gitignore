@@ -2,7 +2,6 @@ node_modules/
 test.cy.js/
 /test-results/
 /playwright/.cache/
-/apiCommands.js/
 /test-results/
 playwright-report/
 /playwright/.cache/
@@ -10,4 +9,9 @@ cypress/screenshots/
 cypress/videos/
 tests-examples/
 cypress/fixtures/credentials1.json
-
+cypress/reports
+allure-report
+allure-results
+/test-results/
+/playwright-report/
+/playwright/.cache/
