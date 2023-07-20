@@ -43,6 +43,19 @@ I'd be happy if you leave me any observations or feedback, and if you want to fo
   
   }
 
+If you want to run this project as a image in Docker you need to do a fork of this repository, then clone this repository in your local directory  and create a file in this directory "../cypress/fixtures/credentials1.json", it must be as the example shown before. You also could download the mu_24 branch of this repository and copy it to a local directory. 
+
+When you have that file, you only need to open a terminal (git, linux, or another one) into the directory and writhe these commands in the command line. You remember to have Docker Desktop installed previously on your computer.  
+    
+    // Requirements 
+  * Install Docker desktop ('https://docs.docker.com/desktop/') 
+    
+    //download base images of cypress and playwright.
+  $ docker pull mcr.microsoft.com/playwright:v1.36.0-jammy
+  $ docker pull cypress/included:12.17.1
+    // run docker compose to turn project on 
+  $ docker-compose up
+
   Thanks.
 
 
