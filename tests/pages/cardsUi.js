@@ -10,6 +10,9 @@ exports.CardsUi = class CardsUi {
 		this.loadPageOfBoards = page.goto(`u/${credentials.userName}/boards`);
         this.enterBoardBtn = page.locator('.board-tile-details-name');
         this.locatorList = page.locator('.list.js-list-content');
+
+        this.locatorList2 = page.locator('[data-testid="list"]');
+        
         this.listBlockLocator = page.locator('#board');
 		// create cards
 		this.addCardIconBtn = page.locator('.js-add-a-card');
@@ -51,6 +54,12 @@ exports.CardsUi = class CardsUi {
         this.targetPosition = page.locator('select.js-select-position');
         this.confirmCopyCardBtn = page.getByText('Create card');
         this.cardWindowCloseBtn = page.locator('[aria-label="Close dialog"]');
+        // Cards Filter
+        this.filterIconBtn = page.getByTestId('filter-popover-button');
+        this.labelValueInput = page.locator('.css-pl72xp');
+        this.labelValueInput1 = page.locator('[id="aria-context"]');
+        this.filterWindowCloseBtn = page.getByTestId('popover-close');
+        this.memberValueCheck= page.locator('.WiVSCg76W3ENQE');
 
     }
 
@@ -104,7 +113,7 @@ exports.CardsUi = class CardsUi {
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Labels').click();
         await this.labelColorBtn.and(this.page.locator(`[data-color="${labelColor}"]`)).click();
-        await this.closeLabelWindowBtn.click();
+        await this.closeLabelWindowBtn.find.click();
     };
 
     async addChecklists(cardName, checklistName) {
@@ -138,6 +147,38 @@ exports.CardsUi = class CardsUi {
         await this.targetPosition.selectOption({label: cardPosition});
         await this.confirmCopyCardBtn.click({force: true});
         await this.cardWindowCloseBtn.click();
+    };
+
+    async addLabelOfList(listName, cardName, labelColor) {
+        await this.locatorList2.filter({has: this.page.getByText(listName)}).getByText(cardName).click();
+        await this.addPropertiesBtn.getByText('Labels').click();
+        await this.labelColorBtn.and(this.page.locator(`[data-color="${labelColor}"]`)).click();
+        await this.closeLabelWindowBtn.click();
+        await this.cardWindowCloseBtn.click();
+    };
+    async addMemberOfList(listName, cardName, memberName) {
+        await this.locatorList2.filter({has: this.page.getByText(listName)}).getByText(cardName).click();
+        await this.addPropertiesBtn.getByText('Member').click();
+        await this.boardMemberBtn.getByText(memberName).click();
+        await this.closeMemberWindowBtn.click();
+        await this.cardWindowCloseBtn.click();
+    };
+
+    async cardsFilter(filterCriteria, value) {
+        await this.filterIconBtn.click();
+        if (filterCriteria === 'label') {
+            console.log('siiii');
+            await this.labelValueInput.click();
+            await this.labelColorBtn.and(this.page.locator(`[data-color="${value}"]`)).first().click();
+            
+        } else if (filterCriteria === 'member') {
+            console.log('noooooo');
+            this.memberValueCheck.and(this.page.getByTitle(value)).click();
+            await this.filterWindowCloseBtn.click();
+        } else {
+            console.log('talvezzz');
+            await await this.filterWindowCloseBtn.click();
+        }
     };
 }
 
