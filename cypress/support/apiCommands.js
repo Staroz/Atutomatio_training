@@ -17,7 +17,6 @@ async function deleteWorkspaces() {
           await axios.delete(
             `https://api.trello.com/1/boards/${organization.idBoards[index]}?&key=${apiKey}&token=${apiToken}`
           );
-          
         }
         await axios.delete(
           `https://api.trello.com/1/organizations/${organization.id}?key=${apiKey}&token=${apiToken}`

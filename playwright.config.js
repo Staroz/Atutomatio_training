@@ -27,7 +27,7 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-
+    viewport: { width: 1680, height: 780 },
     baseURL: 'https://trello.com/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -38,12 +38,13 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'],
+            use: { ...devices['Desktop Chrome'],
             headless: true,
+            viewport: { width: 1480, height: 680 },
             screenshot: 'only-on-failure',
             video: {
               mode: 'on-first-retry', 
-              size: { width: 840, height: 680 }
+              size: { width: 1300, height: 960 }
             }
           },
     },

@@ -16,8 +16,8 @@ module.exports = defineConfig({
   projectId: 'hp4sgv',
   requestTimeout: 3500,
   defaultCommandTimeout: 10000,
-  viewportWidth: 1200,
-  viewportHeight: 660,
+  viewportWidth: 1300,
+  viewportHeight: 860,
   experimentalModifyObstructiveThirdPartyCode: true,
   env: {
     urlApi: 'https://api.trello.com/1',
@@ -38,7 +38,6 @@ module.exports = defineConfig({
       "cypress/e2e/**/*.cy.js",
       "cypress/e2e/**/*.feature",
     ]
-    
-    },
+  },
 });
 

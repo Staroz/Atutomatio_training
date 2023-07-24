@@ -53,9 +53,8 @@ test.describe('Testing workspaces in Trello', async () => {
         });
         
         test('Delete', async () => {
-            await workspaceUi.loadPageOfBoards;
             await workspaceUi.deleteWorkspace(credentials.workSpaceName);
-            await expect(page.locator('[class="WvATk6EiWx7jhz"]')).not.toContainText([credentials.workSpaceName]);
+            await expect(page.locator('.WvATk6EiWx7jhz')).not.toContainText([credentials.workSpaceName]);
         });
     });
 });

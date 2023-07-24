@@ -9,10 +9,7 @@ exports.CardsUi = class CardsUi {
 		this.page = page;
 		this.loadPageOfBoards = page.goto(`u/${credentials.userName}/boards`);
         this.enterBoardBtn = page.locator('.board-tile-details-name');
-        this.locatorList = page.locator('.list.js-list-content');
-
-        this.locatorList2 = page.locator('[data-testid="list"]');
-        
+        this.locatorList = page.locator('[data-testid="list"]');
         this.listBlockLocator = page.locator('#board');
 		// create cards
 		this.addCardIconBtn = page.locator('.js-add-a-card');
@@ -60,11 +57,16 @@ exports.CardsUi = class CardsUi {
         this.labelValueInput1 = page.locator('[id="aria-context"]');
         this.filterWindowCloseBtn = page.getByTestId('popover-close');
         this.memberValueCheck= page.locator('.WiVSCg76W3ENQE');
-
+        this.cardsCount= page.locator('.NiH9mJY3iVeTAl');
     }
 
-	async createCards(boardName, listName, cardsNameArray) {
+	async chooseBoard(boardName) {
+		await this.loadPageOfBoards;
         await this.enterBoardBtn.getByText(boardName).first().click();
+	};
+
+	async createCards(boardName, listName, cardsNameArray) {
+        await this.chooseBoard(boardName) 
         await this.locatorList.filter({has: this.page.getByText(listName)})
                 .getByText('Add a card').click();
 		for (let index = 0; index < cardsNameArray.length; index++) {
@@ -74,7 +76,7 @@ exports.CardsUi = class CardsUi {
 		await this.cancelAddCardsBtn.click();
 	};
 
-	async moveCard( cardName, listName) {
+	async moveCard(cardName, listName) {
         const listPosition = (listName)=>{
             let ans = 0;
             for (let index = 0; index < credentials.listNameArray.length; index++) {
@@ -88,12 +90,12 @@ exports.CardsUi = class CardsUi {
         await this.cardSelector.getByText(cardName).dragTo(this.page.locator( '.list-cards.u-fancy-scrollbar.js-list-cards.js-sortable.ui-sortable').nth(listPosition(listName)));
 	};
 
-    async addDescriptionInCard(cardName, descriptionText) {
+    async addDescriptionInCard(boardName, cardName, descriptionText) {
+        await this.chooseBoard(boardName);
         await this.cardSelector.getByText(cardName).click();
         await this.page.waitForTimeout(5000);
-        const descriptionInput = await this.page.isVisible('#ak-editor-textarea');
-        
-            if (descriptionInput) {
+        const descriptionInput = await this.page.isVisible('[class="js-description-fake-text-area hide-on-edit js-edit-desc LDTYZ4htfrP9Xl"]');
+            if (!descriptionInput) {
                 await this.descriptionTextInput.fill(descriptionText);
                 await this.descriptionTextSaveBtn.click();
             } else {
@@ -102,34 +104,39 @@ exports.CardsUi = class CardsUi {
                 await this.descriptionTextSaveBtn.click();
             }
 	};
-    async addMember(cardName, memberName) {
+    async addMember(boardName, cardName, memberName) {
+        await this.chooseBoard(boardName);
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Member').click();
         await this.boardMemberBtn.getByText(memberName).click();
         await this.closeMemberWindowBtn.click();
 	};
 
-    async addLabel(cardName, labelColor) {
+    async addLabel(boardName, cardName, labelColor) {
+        await this.chooseBoard(boardName);
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Labels').click();
         await this.labelColorBtn.and(this.page.locator(`[data-color="${labelColor}"]`)).click();
-        await this.closeLabelWindowBtn.find.click();
+        await this.closeLabelWindowBtn.click();
     };
 
-    async addChecklists(cardName, checklistName) {
+    async addChecklists(boardName, cardName, checklistName) {
+        await this.chooseBoard(boardName);
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Checklist').click();
         await this.checklistNameInput.fill(checklistName);
         await this.checklistNameInput.press('Enter');
     };
 
-    async addCovers(cardName, coverImageNumber) {
+    async addCovers(boardName, cardName, coverImageNumber) {
+        await this.chooseBoard(boardName);
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Cover').click();
         await this.coverClassBtn.nth(coverImageNumber).click();
         await this.closeCoverWindowBtn.click();
     };
-    async addAttachment(cardName, attachmentLink, linkName) {
+    async addAttachment(boardName, cardName, attachmentLink, linkName) {
+        await this.chooseBoard(boardName);
         await this.cardSelector.getByText(cardName).click();
         await this.attachmentBtn.click();
         await this.linkInput.fill(attachmentLink);
@@ -139,6 +146,7 @@ exports.CardsUi = class CardsUi {
     };
 
     async copyCard(cardName, copyCardName, boardName, listName, cardPosition) {
+        await this.chooseBoard(boardName);
         await this.cardSelector.getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Copy').click();
         await this.copyCardNameInput.fill(copyCardName);
@@ -150,14 +158,14 @@ exports.CardsUi = class CardsUi {
     };
 
     async addLabelOfList(listName, cardName, labelColor) {
-        await this.locatorList2.filter({has: this.page.getByText(listName)}).getByText(cardName).click();
+        await this.locatorList.filter({has: this.page.getByText(listName)}).getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Labels').click();
         await this.labelColorBtn.and(this.page.locator(`[data-color="${labelColor}"]`)).click();
         await this.closeLabelWindowBtn.click();
         await this.cardWindowCloseBtn.click();
     };
     async addMemberOfList(listName, cardName, memberName) {
-        await this.locatorList2.filter({has: this.page.getByText(listName)}).getByText(cardName).click();
+        await this.locatorList.filter({has: this.page.getByText(listName)}).getByText(cardName).click();
         await this.addPropertiesBtn.getByText('Member').click();
         await this.boardMemberBtn.getByText(memberName).click();
         await this.closeMemberWindowBtn.click();
@@ -167,16 +175,13 @@ exports.CardsUi = class CardsUi {
     async cardsFilter(filterCriteria, value) {
         await this.filterIconBtn.click();
         if (filterCriteria === 'label') {
-            console.log('siiii');
             await this.labelValueInput.click();
             await this.labelColorBtn.and(this.page.locator(`[data-color="${value}"]`)).first().click();
-            
+            await await this.filterWindowCloseBtn.click();
         } else if (filterCriteria === 'member') {
-            console.log('noooooo');
-            this.memberValueCheck.and(this.page.getByTitle(value)).click();
+            await this.page.getByTitle(value).click();
             await this.filterWindowCloseBtn.click();
         } else {
-            console.log('talvezzz');
             await await this.filterWindowCloseBtn.click();
         }
     };
