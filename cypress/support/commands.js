@@ -94,7 +94,7 @@ Cypress.Commands.add('archiveList', (boardName, listName) => {
 
 // CARDS HANDLING WITH UI.
 Cypress.Commands.add('createCards', (boardName, cardsNameArray) => {
-    cy.get('.board-tile-details-name').contains(boardName).click();
+    cy.get('.board-tile-details-name').contains(boardName).first().click();
     cy.get('.js-add-a-card').first().click();
         for (let index = 0; index < cardsNameArray.length; index++) {
             cy.get('.list-card-composer-textarea.js-card-title').type(cardsNameArray[index] +'{enter}');
@@ -193,6 +193,8 @@ Cypress.Commands.add('cardsFilter', (filterCriteria, value) => {
         
         cy.get('.WiVSCg76W3ENQE').contains(value).click()
         cy.get('[data-testid="popover-close"]').click();
+    } else if (filterCriteria === 'text') {
+        cy.get('input.nch-textfield__input').type(value+'{enter}');
     } else {
         cy.get('[data-testid="popover-close"]').click();
     }

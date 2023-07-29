@@ -8,7 +8,7 @@ const { CardsUi } = require('./pages/cardsUi')
 test.describe('Filter just a card for an attribute ', async () => { 
     let browser, context, page, boardsApi, cardsUi;
 
-    test.beforeEach (async({ page })=> {
+    test.beforeEach (async()=> {
         page = await context.newPage();
         cardsUi = new CardsUi(page);
     });
@@ -28,7 +28,7 @@ test.describe('Filter just a card for an attribute ', async () => {
         await browser.close();
     });
     
-    test.describe('Creating cards with n attribute for each one', async () => {
+    test.describe('Creating cards with an attribute for each one', async () => {
         
         test.beforeAll(async () => {
                 // Creating workspace, board, lists and cards whit API.
@@ -37,7 +37,7 @@ test.describe('Filter just a card for an attribute ', async () => {
         });
 
         test('Adding an Attribute to all cards', async () => {
-            await cardsUi.chooseBoard(credentials.boardName);            
+            await cardsUi.createCards(credentials.boardName, credentials.listNameArray[0], [credentials.criteriaValue.text])         
             await cardsUi.addLabelOfList(credentials.listNameArray[0], credentials.cardsNameArray[0], credentials.labelColor.green);
             await cardsUi.addLabelOfList(credentials.listNameArray[0], credentials.cardsNameArray[1], credentials.labelColor.orange);
             await cardsUi.addMemberOfList(credentials.listNameArray[0], credentials.cardsNameArray[2], credentials.userName);
@@ -45,12 +45,12 @@ test.describe('Filter just a card for an attribute ', async () => {
             await cardsUi.addLabelOfList(credentials.listNameArray[1], credentials.cardsNameArray[1], credentials.labelColor.blue);
             await cardsUi.addLabelOfList(credentials.listNameArray[1], credentials.cardsNameArray[2], credentials.labelColor.purple);
             await cardsUi.addLabelOfList(credentials.listNameArray[2], credentials.cardsNameArray[2], credentials.labelColor.yellow);
-            expect(cardsUi.cardSelector).toHaveCount(9);
+            expect(cardsUi.cardSelector).toHaveCount(10);
         });
 
         test('filtering card', async () => {
             await cardsUi.chooseBoard(credentials.boardName);            
-            await cardsUi.cardsFilter(credentials.filterCriteria.member, credentials.criteriaValue.memberMyself );
+            await cardsUi.cardsFilter(credentials.filterCriteria.text, credentials.criteriaValue.text);
             expect(cardsUi.cardsCount).toContainText('1');
         });
 

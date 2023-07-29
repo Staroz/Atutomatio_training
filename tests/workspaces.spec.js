@@ -9,7 +9,7 @@ const { WorkspaceApi } = require('./pages/workspaceApi');
 test.describe('Testing workspaces in Trello', async () => { 
     let browser, context, page, workspaceApi, workspaceUi;
 
-    test.beforeEach (async({ page })=> {
+    test.beforeEach (async()=> {
         page = await context.newPage();
         workspaceUi = new WorkspaceUi(page);
         workspaceApi = new WorkspaceApi();

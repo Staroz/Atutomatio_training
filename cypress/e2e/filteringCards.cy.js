@@ -1,6 +1,6 @@
 /// <reference types= "cypress" />
 
-describe("Test for create and move cards in Trello", function() {
+describe("Create and filter cards by attribute in Trello", function() {
     before(function() {
         cy.fixture("credentials1.json").as('credentials');
     });
@@ -23,7 +23,8 @@ describe("Test for create and move cards in Trello", function() {
             cy.createListsAndCardsApi(this.credentials.key, this.credentials.token, this.credentials.listNameArray, this.credentials.cardsNameArray); 
         }); 
         it("Adding a characteristic at all cards", function () {
-				cy.joinBoard(this.credentials.userName, this.credentials.boardName);
+                cy.visit(`/u/" + ${this.credentials.userName} + "/boards`);
+				cy.createCards(this.credentials.boardName, [this.credentials.criteriaValue.text] );
                 cy.addLabelsAllCards( this.credentials.listNameArray[0], this.credentials.cardsNameArray[0], this.credentials.labelColor.red);
                 cy.addLabelsAllCards( this.credentials.listNameArray[0], this.credentials.cardsNameArray[1], this.credentials.labelColor.yellow);
                 cy.addLabelsAllCards( this.credentials.listNameArray[0], this.credentials.cardsNameArray[2], this.credentials.labelColor.green);
@@ -32,12 +33,12 @@ describe("Test for create and move cards in Trello", function() {
                 cy.addLabelsAllCards( this.credentials.listNameArray[1], this.credentials.cardsNameArray[2], this.credentials.labelColor.purple);
                 cy.addMemberOfList(this.credentials.listNameArray[2], this.credentials.cardsNameArray[2], this.credentials.userName)
                 cy.get('.list-card-details.js-card-details').should($value=> {
-                    expect($value).to.have.length(9);
+                    expect($value).to.have.length(10);
                 })
 		});
-        it("Create Cards", function () {
+        it("Filtering a Card", function () {
             cy.joinBoard(this.credentials.userName, this.credentials.boardName);
-            cy.cardsFilter(this.credentials.filterCriteria.member, this.credentials.criteriaValue.memberMyself)
+            cy.cardsFilter(this.credentials.filterCriteria.text, this.credentials.criteriaValue.text)
             cy.get('.NiH9mJY3iVeTAl').should('contain.text', '1');
         });
 	});

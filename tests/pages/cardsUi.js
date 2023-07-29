@@ -55,9 +55,10 @@ exports.CardsUi = class CardsUi {
         this.filterIconBtn = page.getByTestId('filter-popover-button');
         this.labelValueInput = page.locator('.css-pl72xp');
         this.labelValueInput1 = page.locator('[id="aria-context"]');
+        this.keywordInput = page.locator('input.nch-textfield__input')
         this.filterWindowCloseBtn = page.getByTestId('popover-close');
         this.memberValueCheck= page.locator('.WiVSCg76W3ENQE');
-        this.cardsCount= page.locator('.NiH9mJY3iVeTAl');
+        this.cardsCount= page.getByTestId('filter-popover-button-card-count');
     }
 
 	async chooseBoard(boardName) {
@@ -181,6 +182,8 @@ exports.CardsUi = class CardsUi {
         } else if (filterCriteria === 'member') {
             await this.page.getByTitle(value).click();
             await this.filterWindowCloseBtn.click();
+        } else if (filterCriteria === 'text') {
+            await this.keywordInput.fill(value);
         } else {
             await await this.filterWindowCloseBtn.click();
         }
