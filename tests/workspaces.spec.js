@@ -9,7 +9,7 @@ const { WorkspaceApi } = require('./pages/workspaceApi');
 test.describe('Testing workspaces in Trello', async () => { 
     let browser, context, page, workspaceApi, workspaceUi;
 
-    test.beforeEach (async({ page })=> {
+    test.beforeEach (async()=> {
         page = await context.newPage();
         workspaceUi = new WorkspaceUi(page);
         workspaceApi = new WorkspaceApi();
@@ -53,9 +53,8 @@ test.describe('Testing workspaces in Trello', async () => {
         });
         
         test('Delete', async () => {
-            await workspaceUi.loadPageOfBoards;
             await workspaceUi.deleteWorkspace(credentials.workSpaceName);
-            await expect(page.locator('[class="WvATk6EiWx7jhz"]')).not.toContainText([credentials.workSpaceName]);
+            await expect(page.locator('.WvATk6EiWx7jhz')).not.toContainText([credentials.workSpaceName]);
         });
     });
 });

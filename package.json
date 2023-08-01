@@ -6,7 +6,7 @@
     "@playwright/test": "^1.36.0",
     "allure-commandline": "^2.23.0",
     "allure-playwright": "^2.4.0",
-    "cypress": "^12.17.1",
+    "cypress": "^12.17.2",
     "cypress-mochawesome-reporter": "^3.5.1"
   },
   "scripts": {

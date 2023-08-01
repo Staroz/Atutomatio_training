@@ -7,6 +7,7 @@ This Repository has Tests of the web of Trello, the libraries that were used in 
 
 I'd be happy if you leave me any observations or feedback, and if you want to fork this project and run this project in local, you should create a file "cypress/fixtures/credentials1.json" and fill these information:
 
+```
 {
   "email": "example@email.com",
   "pw": "Password",
@@ -39,9 +40,26 @@ I'd be happy if you leave me any observations or feedback, and if you want to fo
     "copiedCardInfo": {
         "copyCardName": "Name of card copied",
         "positionOfCard": "The position you want the copied card to have.(example 1, 2, 3)"
+    },
+        "filterCriteria": {
+        "label": "label",
+        "member": "member",
+        "text": "text"
+    },
+    "criteriaValue": {
+        "red": "red",
+        "yellow": "yellow",
+        "green": "green",
+        "orange": "orange",
+        "purple": "purple",
+        "blue": "blue",
+        "NoMember": "No members",
+        "memberMyself": "Cards assigned to me",
+        "text": "test"
     }
-  
-  }
+}
+
+```
 
 If you want to run this project as a image in Docker you need to do a fork of this repository, then clone this repository in your local directory  and create a file in this directory "../cypress/fixtures/credentials1.json", it must be as the example shown before. You also could download the mu_24 branch of this repository and copy it to a local directory. 
 
@@ -52,11 +70,17 @@ When you have that file, you only need to open a terminal (git, linux, or anothe
     
     //download base images of cypress and playwright.
   $ docker pull mcr.microsoft.com/playwright:v1.36.0-jammy
-  $ docker pull cypress/included:12.17.1
+  $ docker pull cypress/included:12.17.2
     // run docker compose to turn project on 
   $ docker-compose up
 
   Thanks.
 
+CONTACTS
+
+email: marcourquidi17@gmail.com 
+       marcourquidi17@outlook.com
+
+linkedin: https://www.linkedin.com/in/marco-urquidi-791002125/
 
 

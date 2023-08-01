@@ -19,11 +19,15 @@ exports.ListsUi = class ListsUi {
 		// Delete a list
 		this.optionsListBtn = page.locator('[aria-label="List actions"]');
 		this.archiveListBtn = page.locator('.js-close-list');
-		
 	}
 
-	async createLists(boardName, listNameArray) {
+	async chooseBoard(boardName) {
+		await this.loadPageOfBoards;
         await this.enterBoardBtn.getByText(boardName).first().click();
+	};
+
+	async createLists(boardName, listNameArray) {
+		await this.chooseBoard(boardName)
         await this.addListBtn.click();
 		for (let index = 0; index < listNameArray.length; index++) {
             await this.nameListInput.fill(listNameArray[index]);
@@ -33,8 +37,8 @@ exports.ListsUi = class ListsUi {
 	};
 
 	async deleteLists(boardName) {
-        await this.enterBoardBtn.getByText(boardName).first().click();
-        await this.optionsListBtn.first().waitFor();
+		await this.chooseBoard(boardName);
+		await this.optionsListBtn.first().waitFor();
         let listsNumbers = await this.optionsListBtn.count();
         for (let index = 0; index < listsNumbers; index++) {
                 await this.optionsListBtn.first().click();
@@ -43,7 +47,7 @@ exports.ListsUi = class ListsUi {
 	};
 
 	async archivedList(boardName, listName) {
-        await this.enterBoardBtn.getByText(boardName).first().click();
+        await this.chooseBoard(boardName)
         await this.locatorList.filter({has: this.page.getByText(listName)}).getByRole('link', {name: "List actions"}).click();
         await this.archiveListBtn.click();
 	};

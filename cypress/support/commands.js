@@ -94,7 +94,7 @@ Cypress.Commands.add('archiveList', (boardName, listName) => {
 
 // CARDS HANDLING WITH UI.
 Cypress.Commands.add('createCards', (boardName, cardsNameArray) => {
-    cy.get('.board-tile-details-name').contains(boardName).click();
+    cy.get('.board-tile-details-name').contains(boardName).first().click();
     cy.get('.js-add-a-card').first().click();
         for (let index = 0; index < cardsNameArray.length; index++) {
             cy.get('.list-card-composer-textarea.js-card-title').type(cardsNameArray[index] +'{enter}');
@@ -104,7 +104,7 @@ Cypress.Commands.add('createCards', (boardName, cardsNameArray) => {
 
 Cypress.Commands.add('joinBoard', (userName, boardName) => {
     cy.visit(`/u/" + ${userName} + "/boards`);
-    cy.get('.board-tile-details-name').contains(boardName).click();
+    cy.get('.board-tile-details-name').contains(boardName).first().click();
 });
 
 Cypress.Commands.add('addDescriptionInCard', (cardName, descriptionText) => {
@@ -151,8 +151,8 @@ Cypress.Commands.add('moveCard', ( cardName, listName) => {
 Cypress.Commands.add('addAttachment', (cardName, attachmentLink, linkName) => {
     cy.get('.list-card-title.js-card-name').contains(cardName).click();
     cy.get('.Sc6pkrxVPpi79Q').click();
-    cy.get('#url-uid1').should('be.visible').type(attachmentLink, {delay: 0})
-    cy.get('#displayText-uid2').type(linkName, {delay: 0});
+    cy.get('[data-testid="link-url"]').should('be.visible').type(attachmentLink, {delay: 0})
+    cy.get('[data-testid="link-text"]').type(linkName, {delay: 0});
     cy.get('.css-178ag6o').contains('Insert').click({force: true});
 });
 
@@ -165,6 +165,39 @@ Cypress.Commands.add('copyCard', (cardName, copyCardName, boardName, listName, c
     cy.get('select.js-select-position').select(cardPosition);
     cy.contains('Create card').click({force: true});
     cy.get('[aria-label="Close dialog"]').click();
+});
+
+Cypress.Commands.add('addLabelsAllCards', (listName, cardName, labelColor) => {
+    cy.get('[data-testid="list"]').filter(`:contains(${listName})`).contains('.list-card-title.js-card-name', cardName).click();
+    cy.get('.js-sidebar-action-text').contains('Labels').click();
+    cy.get(`[data-color="${labelColor}"]`).click();
+    cy.get('[data-testid="popover-close"]').click();
+    cy.get('[aria-label="Close dialog"]').click();
+});
+
+Cypress.Commands.add('addMemberOfList', (listName, cardName, userName) => {
+    cy.get('[data-testid="list"]').filter(`:contains(${listName})`).contains('.list-card-title.js-card-name', cardName).click();
+    cy.get('.js-sidebar-action-text').contains('Members').click();
+    cy.get('.full-name').contains(userName).click();
+    cy.get('.pop-over-header-close-btn.icon-sm.icon-close').click();
+    cy.get('[aria-label="Close dialog"]').click();
+});
+
+Cypress.Commands.add('cardsFilter', (filterCriteria, value) => {
+    cy.get('[data-testid="filter-popover-button"]').click();
+    if (filterCriteria === 'label') {
+        cy.get('.css-pl72xp').click()
+        cy.get(`div[data-color="${value}"]`).first().click();
+        cy.get('[data-testid="popover-close"]').click();
+    } else if (filterCriteria === 'member') {
+        
+        cy.get('.WiVSCg76W3ENQE').contains(value).click()
+        cy.get('[data-testid="popover-close"]').click();
+    } else if (filterCriteria === 'text') {
+        cy.get('input.nch-textfield__input').type(value+'{enter}');
+    } else {
+        cy.get('[data-testid="popover-close"]').click();
+    }
 });
 
 //MANAGEMENT WORKSPACES AND BOARD WITH API
@@ -264,6 +297,27 @@ Cypress.Commands.add('createCardApi', function(key, token, cardsNameArray ) {
                     expect(response.status).to.eq(200);
                 });
             }
+});
+
+Cypress.Commands.add('createListsAndCardsApi', function(key, token, listNameArray, cardsNameArray ) {
+    for (let index = listNameArray.length - 1; index > -1; index--) {
+        cy.request({
+            url: `${Cypress.env('urlApi')}/lists?name=${listNameArray[index]}&idBoard=${boardId}&key=${key}&token=${token}`,
+            method: 'POST',
+            }).then(response=>{
+                    expect(response.status).to.eq(200);
+                    listId = response.body.id;
+                    for (let index = cardsNameArray.length - 1; index > -1; index--) {
+                        cy.request({
+                            url: `${Cypress.env('urlApi')}/cards?name=${cardsNameArray[index]}&idList=${listId}&key=${key}&token=${token}`,
+                            method: 'POST',
+                            }).then(response=>{
+                                    expect(response.status).to.eq(200);
+                                });
+                            }
+                });
+            }
+            
 });
 
 

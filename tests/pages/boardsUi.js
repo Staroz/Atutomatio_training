@@ -36,6 +36,7 @@ exports.BoardsUi = class BoardsUi {
 	};
 
 	async updateBoardName(boardName, newBoardName) {
+		await this.loadPageOfBoards;
 		await this.page.getByText(boardName).first().click();
 		await this.currentBoardName.click();
 		await this.updateBoardNameInput.fill(newBoardName);
@@ -43,6 +44,7 @@ exports.BoardsUi = class BoardsUi {
 	};
 	
 	async deleteBoard(boardName) {
+		await this.loadPageOfBoards;
 		await this.page.getByText(boardName).first().click();
 		await this.menuIconBtn.click({force: true});
 		await this.menuMoreOptionsBtn.click();

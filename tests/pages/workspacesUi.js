@@ -26,7 +26,8 @@ exports.WorkspaceUi = class WorkspaceUi {
 	}
 
 	async createWorkspace(workspaceName) {
-		await this.createBtn.click();
+		await this.loadPageOfBoards;
+		await this.createBtn.click({force: true});
 		await this.createWorkspaceBtn.click();
 		await this.workspaceNameInput.fill(workspaceName);
 		await this.selectWorkspaceType.click();
@@ -36,6 +37,7 @@ exports.WorkspaceUi = class WorkspaceUi {
 	};
 
 	async deleteWorkspace(workspaceName) {
+		await this.loadPageOfBoards;
 		if (await this.settingsWorkspaceBtn.isVisible()) {
             await this.settingsWorkspaceBtn.click();
         } else {
