@@ -70,7 +70,7 @@ When you have that file, you only need to open a terminal (git, linux, or anothe
     
     //download base images of cypress and playwright.
   $ docker pull mcr.microsoft.com/playwright:v1.36.0-jammy
-  $ docker pull cypress/included:12.17.1
+  $ docker pull cypress/included:12.17.2
     // run docker compose to turn project on 
   $ docker-compose up
 
